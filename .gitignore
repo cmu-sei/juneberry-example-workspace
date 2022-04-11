@@ -13,16 +13,22 @@ Juneberry.egg-info
 .coverage
 htmlcov/
 
-# Ignore models except the config and DVC files
+# Ignore models except the config files
 models/*/*
 !models/**/config.json
-!models/**/*.dvc
+!models/**/**/config.json
+!models/**/**/**/config.json
+!models/**/**/**/**/config.json
+!models/**/**/**/**/**/config.json
 
+# For experiments we want json files except rules
 experiments/*/*
 !experiments/**/*.json
-!experiments/**/*.dvc
+!experiments/**/**/*.json
+!experiments/**/**/**/*.json
 experiments/**/rules.json
-
+experiments/**/**/rules.json
+experiments/**/**/**/rules.json
 
 # The checkpoints directory will contain checkpoints from the container
 checkpoints/
