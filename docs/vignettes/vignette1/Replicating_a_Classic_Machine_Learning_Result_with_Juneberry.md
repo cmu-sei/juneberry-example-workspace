@@ -85,7 +85,7 @@ dataset config in your workspace that defines the relationships between the labe
 When the dataset config is used for the first time, the `download` argument can be used to place a copy of the 
 torchvision dataset into your dataroot. 
 
-![JB_FS](references/jb_cifar_torchvision_FS.PNG)
+![JB_FS](imgs/jb_cifar_torchvision_FS.PNG)
 
 Fortunately, the Docker container for this vignette already has a copy of the CIFAR-10 data stored in your dataroot, 
 so you will not need to spend time obtaining these files if you are using the vignette container. You will however 
@@ -1007,7 +1007,7 @@ network as a function of the iteration number. Since accuracy is equal to one mi
 following plot would resemble Figure 1 of the paper if you were to invert the accuracy curves. Note that they 
 qualitatively match the results reported in He et al. (2015). 
 
-![Error Plot](references/output.png)
+![Error Plot](imgs/output.png)
 
 ## Evaluating a model with Juneberry.
 
@@ -1074,7 +1074,7 @@ curves. The `-c` indicates which classes to draw curves for. "all" is a supporte
 known classes. The final argument, the output location, indicates where to save the resulting plot file. When you run 
 this command, it should produce a plot similar to the following figure:
 
-![Example](references/example_plot.PNG)
+![Example](imgs/example_plot.PNG)
 
 At this point you have completed the training and evaluation phases for a single model in Juneberry. In the next 
 section, you will see how to group multiple models and datasets together to perform bulk training and evaluation 
