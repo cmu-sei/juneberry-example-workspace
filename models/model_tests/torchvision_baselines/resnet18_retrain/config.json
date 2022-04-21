@@ -45,12 +45,12 @@
     "label_mapping": "data_sets/label_mappings/imagenet.json",
     "model_architecture": {
         "args": {
-            "classArgs": {
+            "class_args": {
                 "pretrained": false
             },
-            "className": "resnet18"
+            "class_name": "resnet18"
         },
-        "module": "juneberry-example-workspace.architectures.pytorch.torchvision.Wrapper"
+        "module": "juneberry.pytorch.torchvision.Wrapper"
     },
     "platform": "pytorch",
     "pytorch": {
