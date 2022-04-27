@@ -12,62 +12,59 @@
             },
             {
                 "directory": "imagenette2-160/train/n02102040",
-                "label": 217
+                "label": 1
             },
             {
                 "directory": "imagenette2-160/train/n02979186",
-                "label": 482
+                "label": 2
             },
             {
                 "directory": "imagenette2-160/train/n03000684",
-                "label": 491
+                "label": 3
             },
             {
                 "directory": "imagenette2-160/train/n03028079",
-                "label": 497
+                "label": 4
             },
             {
                 "directory": "imagenette2-160/train/n03394916",
-                "label": 566
+                "label": 5
             },
             {
                 "directory": "imagenette2-160/train/n03417042",
-                "label": 569
+                "label": 6
             },
             {
                 "directory": "imagenette2-160/train/n03425413",
-                "label": 571
+                "label": 7
             },
             {
                 "directory": "imagenette2-160/train/n03445777",
-                "label": 574
+                "label": 8
             },
             {
                 "directory": "imagenette2-160/train/n03888257",
-                "label": 701
+                "label": 9
             }
         ],
         "task_type": "classification"
     },
     "label_names": {
         "0": "tench",
-        "217": "English_springer",
-        "482": "cassette_player",
-        "491": "chain_saw",
-        "497": "church",
-        "566": "French_horn",
-        "569": "garbage_truck",
-        "571": "gas_pump",
-        "574": "golf_ball",
-        "701": "parachute"
+        "1": "English_springer",
+        "2": "cassette_player",
+        "3": "chain_saw",
+        "4": "church",
+        "5": "French_horn",
+        "6": "garbage_truck",
+        "7": "gas_pump",
+        "8": "golf_ball",
+        "9": "parachute"
     },
-    "num_model_classes": 1000,
+    "num_model_classes": 10,
     "sampling": {
-        "algorithm": "random_quantity",
-        "arguments": {
-            "count": 10,
-            "seed": 123456789
-        }
+        "algorithm": "none",
+        "arguments": {}
     },
     "timestamp": "2020-11-06T08:18:00"
 }
