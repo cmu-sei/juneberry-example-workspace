@@ -70,7 +70,7 @@
     "label_mapping": "data_sets/label_mappings/imagenet.json",
     "model_architecture": {
         "args": {
-            "class_name": "resnet34",
+            "class_name": "resnet18",
             "class_args": {
                 "pretrained": true
             }
@@ -88,7 +88,7 @@
         "lr_schedule_args": {
             "epochs": 5,
             "max_lr": 5e-3,
-            "steps_per_epoch": 5
+            "steps_per_epoch": 3
         },
         "lr_schedule_fn": "torch.optim.lr_scheduler.OneCycleLR",
         "lr_step_frequency": "batch",
@@ -140,7 +140,7 @@
     "validation": {
         "algorithm": "random_fraction",
         "arguments": {
-            "fraction": 0.99,
+            "fraction": 0.995,
             "seed": 3554237221
         }
     }
