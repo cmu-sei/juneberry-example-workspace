@@ -10,10 +10,17 @@
                "max_det": 100,
                "tqdm": false
            }
+       },
+       {
+           "fqcn": "juneberry.metrics.metrics.Stats",
+           "kwargs": {
+               "iou_threshold": 0.5,
+               "tp_threshold": 0.8
+           }
        }
     ],
     "evaluation_metrics_formatter": {
-        "fqcn": "juneberry.metrics.format.DefaultCocoFormatter",
+        "fqcn": "juneberry.metrics.format.DefaultFormatter",
         "kwargs": {
         }
     },
