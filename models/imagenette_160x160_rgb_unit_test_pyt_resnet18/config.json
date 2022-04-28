@@ -4,24 +4,26 @@
     "epochs": 5,
     "evaluation_transforms": [
         {
-            "fqcn": "juneberry.transforms.image.ResizePad",
-            "kwargs": {
-                "height": 160,
-                "width": 160
-            }
-        },
-        {
             "fqcn": "juneberry.transforms.image.ConvertMode",
             "kwargs": {
                 "mode": "RGB"
             }
         },
         {
-            "fqcn": "juneberry.transforms.debugging_transforms.SizeCheckImageTransform",
+            "fqcn": "torchvision.transforms.RandomResizedCrop",
             "kwargs": {
-                "height": 160,
-                "mode": "RGB",
-                "width": 160
+                "size": 160,
+                "scale": [0.35, 1.3333333333333333]
+            }
+        },
+        {
+            "fqcn": "torchvision.transforms.ToTensor"
+        },
+        {
+            "fqcn": "torchvision.transforms.Normalize",
+            "kwargs": {
+                "mean": [ 0.485, 0.456, 0.406 ],
+                "std": [ 0.229, 0.224, 0.225 ]
             }
         }
     ],
@@ -69,33 +71,26 @@
     "training_dataset_config_path": "data_sets/imagenette_unit_train.json",
     "training_transforms": [
         {
-            "fqcn": "juneberry.transforms.image.ResizePad",
-            "kwargs": {
-                "height": 160,
-                "width": 160
-            }
-        },
-        {
             "fqcn": "juneberry.transforms.image.ConvertMode",
             "kwargs": {
                 "mode": "RGB"
             }
         },
         {
-            "fqcn": "juneberry.transforms.debugging_transforms.SizeCheckImageTransform",
+            "fqcn": "torchvision.transforms.RandomResizedCrop",
             "kwargs": {
-                "height": 160,
-                "mode": "RGB",
-                "width": 160
+                "size": 160,
+                "scale": [0.35, 1.3333333333333333]
             }
         },
         {
             "fqcn": "torchvision.transforms.ToTensor"
         },
         {
-            "fqcn": "juneberry.transforms.debugging_transforms.NoOpTensorTransform",
+            "fqcn": "torchvision.transforms.Normalize",
             "kwargs": {
-                "name": "NoOpTensorTransformer"
+                "mean": [ 0.485, 0.456, 0.406 ],
+                "std": [ 0.229, 0.224, 0.225 ]
             }
         }
     ],
