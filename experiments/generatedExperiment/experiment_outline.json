@@ -24,19 +24,25 @@
         {
             "classes": "0,217,482,491,497",
             "description": "Builds a ROC plot for classes 0,217,482,491 and 497",
-            "test_tag": "Test 1",
-            "type": "plot_roc"
+            "fqcn": "juneberry.reporting.roc.ROCPlot",
+            "test_tag": "Test 1"
         },
         {
             "description": "Experiment Summary",
-            "output_name": "Experiment Summary.md",
-            "type": "summary"
+            "fqcn": "juneberry.reporting.summary.Summary",
+            "kwargs": {
+                "md_filename": "Experiment Summary.md"
+            }
         },
         {
             "classes": "566,569,571,574,701",
             "description": "Builds a combined ROC plot for classes 566,569,571,574 and 701",
-            "test_tag": "Test 1",
-            "type": "all_roc"
+            "fqcn": "all_roc",
+            "kwargs": {
+                "legend_font_size": 4,
+                "legend_scaling": 1.0
+            },
+            "test_tag": "Test 1"
         }
     ],
     "tests": [
@@ -46,7 +52,7 @@
             "tag": "Test 1"
         }
     ],
-    "timestamp": "2021-02-278T10::00",
+    "timestamp": "2021-02-27T10:00",
     "variables": [
         {
             "config_field": "pytorch.optimizer_args.lr",
