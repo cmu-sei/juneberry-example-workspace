@@ -1,0 +1,70 @@
+{
+    "data_type": "image",
+    "description": "Imagenette. 160x160, rgb",
+    "format_version": "0.2.0",
+    "url": "https://github.com/fastai/imagenette",
+    "image_data": {
+        "url": "https://github.com/fastai/imagenette",
+        "sources": [
+            {
+                "directory": "imagenette2-160/val/n01440764",
+                "label": 0
+            },
+            {
+                "directory": "imagenette2-160/val/n02102040",
+                "label": 1
+            },
+            {
+                "directory": "imagenette2-160/val/n02979186",
+                "label": 2
+            },
+            {
+                "directory": "imagenette2-160/val/n03000684",
+                "label": 3
+            },
+            {
+                "directory": "imagenette2-160/val/n03028079",
+                "label": 4
+            },
+            {
+                "directory": "imagenette2-160/val/n03394916",
+                "label": 5
+            },
+            {
+                "directory": "imagenette2-160/val/n03417042",
+                "label": 6
+            },
+            {
+                "directory": "imagenette2-160/val/n03425413",
+                "label": 7
+            },
+            {
+                "directory": "imagenette2-160/val/n03445777",
+                "label": 8
+            },
+            {
+                "directory": "imagenette2-160/val/n03888257",
+                "label": 9
+            }
+        ],
+        "task_type": "classification"
+    },
+    "label_names": {
+        "0": "tench",
+        "1": "English_springer",
+        "2": "cassette_player",
+        "3": "chain_saw",
+        "4": "church",
+        "5": "French_horn",
+        "6": "garbage_truck",
+        "7": "gas_pump",
+        "8": "golf_ball",
+        "9": "parachute"
+    },
+    "num_model_classes": 10,
+    "sampling": {
+        "algorithm": "none",
+        "arguments": {}
+    },
+    "timestamp": "2020-11-06T08:18:00"
+}

@@ -67,7 +67,6 @@
         "fqcn": "juneberry.pytorch.evaluation.evaluator.Evaluator"
     },
     "format_version": "0.2.0",
-    "label_mapping": "data_sets/label_mappings/imagenet.json",
     "model_architecture": {
         "args": {
             "class_name": "resnet34",
@@ -103,7 +102,7 @@
     "trainer": {
         "fqcn": "juneberry.pytorch.classifier_trainer.ClassifierTrainer"
     },
-    "training_dataset_config_path": "data_sets/imagenette_unit_train.json",
+    "training_dataset_config_path": "data_sets/imagenette_unit_train_10labels.json",
     "training_transforms": [
         {
             "fqcn": "juneberry.transforms.image.ConvertMode",
