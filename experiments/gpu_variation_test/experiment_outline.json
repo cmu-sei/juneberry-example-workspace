@@ -8,13 +8,7 @@
             "description": "Builds a ROC plot for classes 0,217,482,491 and 497",
             "test_tag": "UnitTest",
             "type": "plot_roc"
-        },
-        {
-            "classes": "566,569,571,574,701",
-            "description": "Builds a combined ROC plot for classes 566,569,571,574 and 701",
-            "test_tag": "UnitTest",
-            "type": "plot_roc"
-        },
+        }
         {
             "description": "Experiment Summary",
             "output_name": "Experiment Summary.md",
