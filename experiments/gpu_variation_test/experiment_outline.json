@@ -8,7 +8,7 @@
             "description": "Builds a ROC plot for classes 0,217,482,491 and 497",
             "test_tag": "UnitTest",
             "type": "plot_roc"
-        }
+        },
         {
             "description": "Experiment Summary",
             "output_name": "Experiment Summary.md",
