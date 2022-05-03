@@ -1,5 +1,5 @@
 {
-    "baseline_config": "imagenette_160x160_rgb_unit_test_pyt_resnet18",
+    "baseline_config": "imagenette_gpu_baseline",
     "description": "A test with runs 1 cpu and 2 gpu configurations.",
     "format_version": "0.2.0",
     "reports": [
