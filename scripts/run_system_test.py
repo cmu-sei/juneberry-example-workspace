@@ -59,7 +59,7 @@ CLSFY_TEST_SET = [
     [
         "imagenette_160x160_rgb_unit_test_pyt_resnet18",
         "data_sets/imagenette_unit_test.json",
-        0.97,
+        0.94,
         0.65
     ],
     [
