@@ -59,8 +59,8 @@ CLSFY_TEST_SET = [
     [
         "imagenette_160x160_rgb_unit_test_pyt_resnet18",
         "data_sets/imagenette_unit_test.json",
-        1.0,
-        0.47
+        0.97,
+        0.65
     ],
     [
         "imagenette_224x224_rgb_unit_test_tf_resnet50",
@@ -275,7 +275,7 @@ def check_training_metric(model_name, model_mgr, eval_dir_mgr, min_train_metric,
     train_metric_name = "accuracy"
     training_metric = training_data.results.accuracy[-1]
 
-    if platform in ['pytorch', 'pytorch_privacy']:
+    if platform in ['pytorch_imagenet_resnet', 'pytorch_privacy']:
         eval_metric_name = "balanced_accuracy"
         eval_metric = eval_data.results.metrics.balanced_accuracy
 
