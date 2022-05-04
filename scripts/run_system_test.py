@@ -275,7 +275,7 @@ def check_training_metric(model_name, model_mgr, eval_dir_mgr, min_train_metric,
     train_metric_name = "accuracy"
     training_metric = training_data.results.accuracy[-1]
 
-    if platform in ['pytorch_imagenet_resnet', 'pytorch_privacy']:
+    if platform in ['pytorch', 'pytorch_privacy']:
         eval_metric_name = "balanced_accuracy"
         eval_metric = eval_data.results.metrics.balanced_accuracy
 
