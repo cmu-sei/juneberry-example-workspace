@@ -31,6 +31,9 @@
         "fqcn": "juneberry.pytorch.evaluation.evaluator.Evaluator"
     },
     "format_version": "0.2.0",
+    "lab_profile": {
+        "num_gpus": 0
+    },
     "label_mapping": "data_sets/label_mappings/imagenet.json",
     "model_architecture": {
         "args": {

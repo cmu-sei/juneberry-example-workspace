@@ -22,7 +22,6 @@
 #
 # ======================================================================================================================
 
-import importlib
 import logging
 import sys
 
@@ -34,18 +33,6 @@ from torchvision.models.resnet import ResNet
 import torch.nn.functional as F
 
 logger = logging.getLogger(__name__)
-
-
-class Wrapper:
-    """
-    Basic wrapper for torchvision models classes
-    """
-
-    def __call__(self, className, classArgs, num_classes):
-        mod = importlib.import_module('torchvision.models')
-        my_class = getattr(mod, className)
-        return my_class(**classArgs)
-
 
 class ResNetCustom(nn.Module):
 
