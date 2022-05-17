@@ -1,0 +1,42 @@
+{
+    "baseline_config": "imagenette_gpu_baseline",
+    "description": "A test with runs 1 cpu and 2 gpu configurations.",
+    "format_version": "0.2.0",
+    "reports": [
+        {
+            "classes": "0,217,482,491,497",
+            "description": "Builds a ROC plot for classes 0,217,482,491 and 497",
+            "test_tag": "UnitTest",
+            "type": "plot_roc"
+        },
+        {
+            "description": "Experiment Summary",
+            "output_name": "Experiment Summary.md",
+            "type": "summary"
+        }
+    ],
+    "tests": [
+        {
+            "classify": 0,
+            "dataset_path": "data_sets/imagenette_unit_test.json",
+            "tag": "UnitTest"
+        },
+        {
+            "classify": 0,
+            "dataset_path": "data_sets/imagenet_validation.json",
+            "tag": "Validation"
+        }
+    ],
+    "timestamp": "2022-05-03T08:30",
+    "variables": [
+        {
+            "config_field": "lab_profile.num_gpus",
+            "nickname": "num_gpus",
+            "vals": [
+                0,
+                1,
+                2
+            ]
+        }
+    ]
+}

@@ -17,6 +17,16 @@
             }
         }
     },
+    "reports": [
+        {
+            "description": "Example Attack Summary Report",
+            "fqcn": "juneberry.reporting.attack_summary.AttackSummary",
+            "kwargs": {
+                "experiment_name": "propertyInferenceAttack",
+                "output_str": ""
+            }
+        }
+    ],
     "watermarks": {
         "training_watermarks": {
             "fqcn": "juneberry.transforms.debugging_transforms.NoOpTensorTransform",

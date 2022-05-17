@@ -1,7 +1,35 @@
 {
     "batch_size": 20,
-    "description": "Unit test using a pretrained pytorch resnet18 model with small dataset.",
+    "description": "Unit test using a pretrained pytorch resnet18 model with Imagenette. Follows docs here: https://docs.fast.ai/tutorial.imagenette.html",
     "epochs": 5,
+    "model_transforms": [
+        {
+            "fqcn": "juneberry.pytorch.model_transforms.LogModelSummary",
+            "kwargs": {
+                "image_shape": [
+                    3,
+                    256,
+                    256
+                ]
+            }
+        },
+        {
+            "fqcn": "juneberry.pytorch.model_transforms.ReplaceFC",
+            "kwargs": {
+                "num_classes": 10
+            }
+        },
+        {
+            "fqcn": "juneberry.pytorch.model_transforms.LogModelSummary",
+            "kwargs": {
+                "image_shape": [
+                    3,
+                    256,
+                    256
+                ]
+            }
+        }
+        ],    
     "evaluation_transforms": [
         {
             "fqcn": "juneberry.transforms.image.ConvertMode",
@@ -12,7 +40,7 @@
         {
             "fqcn": "torchvision.transforms.RandomResizedCrop",
             "kwargs": {
-                "size": 160,
+                "size": 256,
                 "scale": [0.35, 1.3333333333333333]
             }
         },
@@ -22,8 +50,16 @@
         {
             "fqcn": "torchvision.transforms.Normalize",
             "kwargs": {
-                "mean": [ 0.485, 0.456, 0.406 ],
-                "std": [ 0.229, 0.224, 0.225 ]
+                "mean": [
+                    0.485,
+                    0.456,
+                    0.406
+                ],
+                "std": [
+                    0.229,
+                    0.224,
+                    0.225
+                ]
             }
         }
     ],
@@ -31,15 +67,14 @@
         "fqcn": "juneberry.pytorch.evaluation.evaluator.Evaluator"
     },
     "format_version": "0.2.0",
-    "label_mapping": "data_sets/label_mappings/imagenet.json",
     "model_architecture": {
         "args": {
-            "channels": 3,
-            "img_height": 160,
-            "img_width": 160,
-            "num_classes": 1000
+            "class_name": "resnet34",
+            "class_args": {
+                "pretrained": false
+            }
         },
-        "module": "juneberry-example-workspace.architectures.pytorch.pytv_resnet18_pretrained_reference.ReferenceResnet18"
+        "module": "juneberry.pytorch.torchvision.Wrapper"
     },
     "platform": "pytorch",
     "pytorch": {
@@ -50,15 +85,14 @@
         "deterministic": true,
         "loss_fn": "torch.nn.CrossEntropyLoss",
         "lr_schedule_args": {
-            "gamma": 0.5,
-            "milestones": [
-                3,
-                5
-            ]
+            "epochs": 5,
+            "max_lr": 5e-3,
+            "steps_per_epoch": 379
         },
-        "lr_schedule_fn": "MultiStepLR",
+        "lr_schedule_fn": "torch.optim.lr_scheduler.OneCycleLR",
+        "lr_step_frequency": "batch",
         "optimizer_args": {
-            "lr": 0.01
+            "lr": 5e-3
         },
         "optimizer_fn": "torch.optim.SGD"
     },
@@ -68,7 +102,7 @@
     "trainer": {
         "fqcn": "juneberry.pytorch.classifier_trainer.ClassifierTrainer"
     },
-    "training_dataset_config_path": "data_sets/imagenette_unit_train.json",
+    "training_dataset_config_path": "data_sets/imagenette_unit_train_10labels.json",
     "training_transforms": [
         {
             "fqcn": "juneberry.transforms.image.ConvertMode",
@@ -79,7 +113,7 @@
         {
             "fqcn": "torchvision.transforms.RandomResizedCrop",
             "kwargs": {
-                "size": 160,
+                "size": 256,
                 "scale": [0.35, 1.3333333333333333]
             }
         },
@@ -89,8 +123,16 @@
         {
             "fqcn": "torchvision.transforms.Normalize",
             "kwargs": {
-                "mean": [ 0.485, 0.456, 0.406 ],
-                "std": [ 0.229, 0.224, 0.225 ]
+                "mean": [
+                    0.485,
+                    0.456,
+                    0.406
+                ],
+                "std": [
+                    0.229,
+                    0.224,
+                    0.225
+                ]
             }
         }
     ],
