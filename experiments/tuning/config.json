@@ -1,0 +1,11 @@
+{
+    "description": "A simple experiment to exercise model tuning.",
+    "format_version": "0.3.0",
+    "timestamp": "2022-06-23T07:27:00",
+    "tuning":[
+        {
+            "model": "imagenette_160x160_rgb_unit_test_pyt_resnet18",
+            "tuning_config": "tuning/example_tuning_config.json"
+        }
+]
+}

@@ -10,9 +10,9 @@
         "fqcn": "ray.tune.suggest.basic_variant.BasicVariantGenerator",
         "kwargs": {
             "points_to_evaluate": [
+                {"batch_size": 20},
                 {"batch_size": 10},
-                {"batch_size": 15},
-                {"batch_size": 20}
+                {"batch_size": 15}
             ]
         }
     },
