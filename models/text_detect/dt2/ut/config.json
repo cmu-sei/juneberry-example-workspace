@@ -48,6 +48,9 @@
         "fqcn": "juneberry.detectron2.evaluator.Evaluator"
     },
     "format_version": "0.2.0",
+    "lab_profile": {
+        "max_gpus": 4
+    },
     "model_architecture": {
         "args": {
             "num_classes": 3
