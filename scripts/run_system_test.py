@@ -86,13 +86,6 @@ OD_GPU_TEST_SET = [
         #  Single GPU (0.004), 2 GPU (0.003), 4 GPU (0.004)
         0.00003
     ],
-    [
-        "text_detect/mmd/ut",
-        "data_sets/text_detect_val.json",
-        0.92,
-        #  Single GPU (9.3), 2 GPU (2.5), 4 GPU (2.0) in testing.
-        0.0159
-    ]
 ]
 
 OD_CPU_TEST_SET = [
@@ -279,7 +272,7 @@ def check_training_metric(model_name, model_mgr, eval_dir_mgr, min_train_metric,
         eval_metric_name = "balanced_accuracy"
         eval_metric = eval_data.results.metrics.balanced_accuracy
 
-    elif platform in ['detectron2', 'mmdetection']:
+    elif platform in ['detectron2']:
         eval_metric_name = "mAP"
         eval_metric = eval_data.results.metrics.bbox['mAP']
 
@@ -380,11 +373,6 @@ def get_experiment_file_list(experiment_name):
             "/ut_val_dt2/pc_curve.png",
             "/ut_val_dt2/pr_curve.png",
             "/ut_val_dt2/rc_curve.png",
-            "/ut_val_mmd/eval_metrics.csv",
-            "/ut_val_mmd/log_plot_pr.txt",
-            "/ut_val_mmd/pc_curve.png",
-            "/ut_val_mmd/pr_curve.png",
-            "/ut_val_mmd/rc_curve.png",
             "/ut_val_combined/eval_metrics.csv",
             "/ut_val_combined/log_plot_pr.txt",
             "/ut_val_combined/pc_curve.png",

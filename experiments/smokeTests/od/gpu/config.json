@@ -10,15 +10,6 @@
                     "tag": "ut_val_dt2"
                 }
             ]
-        },
-        {
-            "name": "text_detect/mmd/ut",
-            "tests": [
-                {
-                    "dataset_path": "data_sets/text_detect_val.json",
-                    "tag": "ut_val_mmd"
-                }
-            ]
         }
     ],
     "reports": [
@@ -36,19 +27,6 @@
         ]
         },
         {
-            "description": "Builds PR plots for the mmd model.",
-            "fqcn": "juneberry.reporting.pr.PRCurve",
-            "kwargs": {
-                "iou": 0.5,
-                "output_dir": "ut_val_mmd"
-            },
-            "tests": [
-                {
-                    "tag": "ut_val_mmd"
-                }
-            ]
-        },
-        {
             "description": "Combines PR curves for both platforms on the same plot. Slight increase to IoU.",
             "fqcn": "juneberry.reporting.pr.PRCurve",
             "kwargs": {
@@ -58,9 +36,6 @@
             "tests": [
                 {
                     "tag": "ut_val_dt2"
-                },
-                {
-                    "tag": "ut_val_mmd"
                 }
             ]
         },
