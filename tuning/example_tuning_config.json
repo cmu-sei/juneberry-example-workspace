@@ -1,7 +1,7 @@
 {
     "description": "An example tuning config for tuning imagenette_160x160_rgb_unit_test_pyt_resnet18",
     "format_version": "0.1.0",
-    "sample_quantity": 3,
+    "num_samples": 3,
     "scheduler": {
         "fqcn": "ray.tune.schedulers.AsyncHyperBandScheduler",
         "kwargs": {}
