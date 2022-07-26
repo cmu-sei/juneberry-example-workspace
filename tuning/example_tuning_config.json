@@ -16,14 +16,15 @@
             ]
         }
     },
-    "search_space": {
-        "batch_size": {
+    "search_space": [
+        {
+            "hyperparameter_name": "batch_size",
             "fqcn": "ray.tune.choice",
             "kwargs": {
                 "categories": [10, 15, 20]
             }
         }
-    },
+    ],
     "timestamp": "2022-06-14T09:00:00",
     "trial_resources": {
         "cpu": 8,
