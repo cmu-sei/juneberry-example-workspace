@@ -23,6 +23,15 @@
             "kwargs": {
                 "categories": [10, 15, 20]
             }
+        },
+        {
+            "hyperparameter_name": "pytorch.lr_schedule_args.gamma",
+            "fqcn": "ray.tune.quniform",
+            "kwargs": {
+                "lower": 0.5,
+                "upper": 1.0,
+                "q": 0.1
+            }
         }
     ],
     "timestamp": "2022-06-14T09:00:00",
