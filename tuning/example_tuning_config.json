@@ -1,0 +1,48 @@
+{
+    "description": "An example tuning config for tuning imagenette_160x160_rgb_unit_test_pyt_resnet18",
+    "format_version": "0.1.0",
+    "num_samples": 3,
+    "scheduler": {
+        "fqcn": "ray.tune.schedulers.AsyncHyperBandScheduler",
+        "kwargs": {}
+    },
+    "search_algorithm": {
+        "fqcn": "ray.tune.suggest.basic_variant.BasicVariantGenerator",
+        "kwargs": {
+            "points_to_evaluate": [
+                {"batch_size": 20},
+                {"batch_size": 10},
+                {"batch_size": 15}
+            ]
+        }
+    },
+    "search_space": [
+        {
+            "hyperparameter_name": "batch_size",
+            "fqcn": "ray.tune.choice",
+            "kwargs": {
+                "categories": [10, 15, 20]
+            }
+        },
+        {
+            "hyperparameter_name": "pytorch.lr_schedule_args.gamma",
+            "fqcn": "ray.tune.quniform",
+            "kwargs": {
+                "lower": 0.5,
+                "upper": 1.0,
+                "q": 0.1
+            }
+        }
+    ],
+    "timestamp": "2022-06-14T09:00:00",
+    "trial_resources": {
+        "cpu": 8,
+        "gpu": 0
+    },
+    "tuning_parameters": {
+        "checkpoint_interval": 1,
+        "metric": "loss",
+        "mode": "min",
+        "scope": "last"
+    }
+}
