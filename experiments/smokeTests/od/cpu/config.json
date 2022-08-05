@@ -18,7 +18,7 @@
             "fqcn": "juneberry.reporting.pr.PRCurve",
             "kwargs": {
                 "iou": 0.5,
-                "output_dir": "ut_val_dt2"
+                "output_dir": "experiments/smokeTests/od/cpu/ut_val_dt2"
             },
             "tests": [
                 {
@@ -30,8 +30,8 @@
             "description": "Simple OD System Test Summary",
             "fqcn": "juneberry.reporting.summary.Summary",
             "kwargs": {
-                "csv_filename": "OD System Test Summary.csv",
-                "md_filename": "System OD Test Summary.md"
+                "csv_filename": "experiments/smokeTests/od/cpu/OD System Test Summary.csv",
+                "md_filename": "experiments/smokeTests/od/cpu/System OD Test Summary.md"
             }
         }
     ],

@@ -41,8 +41,10 @@ import sys
 import torch
 
 from juneberry.config.eval_output import EvaluationOutput
+from juneberry.config.model import ModelConfig
 from juneberry.config.training_output import TrainingOutput
 import juneberry.filesystem as jbfs
+import juneberry.loader as jb_loader
 
 # model_name, eval_dataset, min_train_accuracy, min_eval_metric (balanced_accuracy | mAP)
 # NOTE: The min_train_accuracy and min_eval_metric thresholds are rough guidelines of what
@@ -270,26 +272,32 @@ def check_training_metric(model_name, model_mgr, eval_dir_mgr, min_train_metric,
                       f"to check for this model. Exiting.")
         sys.exit(-1)
 
-    platform = model_mgr.get_model_platform()
+    model_config = ModelConfig.load(model_mgr.get_model_config())
+    trainer_cls = jb_loader.load_class(model_config.trainer.fqcn)
+    evaluator_cls = jb_loader.load_class(model_config.evaluator.fqcn)
+
+    # platform = model_mgr.get_model_platform()
 
     train_metric_name = "accuracy"
     training_metric = training_data.results.accuracy[-1]
 
-    if platform in ['pytorch', 'pytorch_privacy']:
-        eval_metric_name = "balanced_accuracy"
-        eval_metric = eval_data.results.metrics.balanced_accuracy
+    # if platform in ['pytorch', 'pytorch_privacy']:
+    #     eval_metric_name = "balanced_accuracy"
+    #     eval_metric = eval_data.results.metrics.balanced_accuracy
+    #
+    # elif platform in ['detectron2', 'mmdetection']:
+    #     eval_metric_name = "mAP"
+    #     eval_metric = eval_data.results.metrics.bbox['mAP']
+    #
+    # elif platform in ['tensorflow']:
+    #     eval_metric_name = "accuracy"
+    #     eval_metric = eval_data.results.metrics.accuracy
+    #
+    # else:
+    #     logging.error(f"Unknown platform type detected for model {model_name}. Exiting.")
+    #     sys.exit(-1)
 
-    elif platform in ['detectron2', 'mmdetection']:
-        eval_metric_name = "mAP"
-        eval_metric = eval_data.results.metrics.bbox['mAP']
-
-    elif platform in ['tensorflow']:
-        eval_metric_name = "accuracy"
-        eval_metric = eval_data.results.metrics.accuracy
-
-    else:
-        logging.error(f"Unknown platform type detected for model {model_name}. Exiting.")
-        sys.exit(-1)
+    eval_metric = evaluator_cls.get_default_metric_value(eval_data)
 
     if training_metric >= min_train_metric:
         logging.info(f"Training {train_metric_name} for {model_name} of {training_metric} exceeded "
@@ -297,12 +305,12 @@ def check_training_metric(model_name, model_mgr, eval_dir_mgr, min_train_metric,
 
         # Met the training threshold, so check the eval metric in the same fashion.
         if eval_metric >= min_eval_metric:
-            logging.info(f"Evaluation {eval_metric_name} for {model_name} of {eval_metric} exceeded "
-                         f"min {eval_metric_name}: {min_eval_metric}.")
+            logging.info(f"Evaluation metric for {model_name} of {eval_metric} exceeded "
+                         f"min metric: {min_eval_metric}.")
             return True
         else:
-            logging.error(f"Evaluation {eval_metric_name} for {model_name} of {eval_metric} did NOT exceed min "
-                          f"{eval_metric_name}: {min_eval_metric}. See evaluation output file for details.")
+            logging.error(f"Evaluation metric for {model_name} of {eval_metric} did NOT exceed min "
+                          f"metric: {min_eval_metric}. See evaluation output file for details.")
             sys.exit(-1)
 
     else:
@@ -418,11 +426,14 @@ def get_model_train_file_patterns(model_name: str) -> list:
     """
 
     model_mgr = jbfs.ModelManager(model_name)
+    # TODO: Should we dig this out by hand?
+    model_config = ModelConfig.load(model_mgr.get_model_config())
+    trainer_class = jb_loader.load_class(model_config.trainer.fqcn)
 
     files = [
         '/'.join(model_mgr.get_training_out_file().parts[-2:]),
         '/'.join(model_mgr.get_training_log().parts[-2:]),
-        model_mgr.get_model_path().name
+        model_mgr.get_model_path(trainer_class.get_platform_defs()).name
     ]
 
     if model_name in ["imagenette_224x224_rgb_unit_test_tf_resnet50"]:
@@ -438,7 +449,7 @@ def get_model_train_file_patterns(model_name: str) -> list:
             '/'.join(model_mgr.get_validation_data_manifest_path().parts[-2:])
         ]
 
-        plat_conf = '/'.join(model_mgr.get_platform_training_config("py").parts[-2:])
+        plat_conf = '/'.join(model_mgr.get_platform_training_config(trainer_class.get_platform_defs()).parts[-2:])
         ext.append(plat_conf)
 
         files.extend(ext)
@@ -458,6 +469,8 @@ def get_model_dry_run_file_patterns(model_name: str) -> list:
 
     # TODO: All the path splitting stuff has to change. It is too cryptic and fragile.
     model_mgr = jbfs.ModelManager(model_name)
+    model_config = ModelConfig.load(model_mgr.get_model_config())
+    trainer_class = jb_loader.load_class(model_config.trainer.fqcn)
 
     files = [
         '/'.join(model_mgr.get_training_dryrun_log_path().parts[-2:])
@@ -488,7 +501,7 @@ def get_model_dry_run_file_patterns(model_name: str) -> list:
             '/'.join(model_mgr.get_validation_data_manifest_path().parts[-2:])
         ]
 
-        plat_conf = '/'.join(model_mgr.get_platform_training_config("py").parts[-2:])
+        plat_conf = '/'.join(model_mgr.get_platform_training_config(trainer_class.get_platform_defs()).parts[-2:])
         ext.append(plat_conf)
 
     else:
