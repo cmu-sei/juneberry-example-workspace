@@ -28,7 +28,7 @@
             "img_width": 224,
             "num_classes": 1000
         },
-        "module": "juneberry-example-workspace.architectures.tensorflow.resnet_pretrained_reference.Resnet50Pretrained"
+        "module": "juneberry_example_workspace.architectures.tensorflow.resnet_pretrained_reference.Resnet50Pretrained"
     },
     "platform": "tensorflow",
     "tensorflow": {

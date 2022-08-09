@@ -312,11 +312,11 @@ class Resnet32x32:
             return model
 ```
 
-Inside your Juneberry repo, navigate to the `juneberry-example-workspace/architectures/pytorch` directory and create a new file named 
+Inside your Juneberry repo, navigate to the `juneberry_example_workspace/architectures/pytorch` directory and create a new file named 
 **📝resnet_simple.py**. Add the following content to the file:
 
 <details>
-  <summary>👾File content for 'juneberry-example-workspace/architectures/pytorch/resnet_simple.py'</summary>
+  <summary>👾File content for 'juneberry_example_workspace/architectures/pytorch/resnet_simple.py'</summary>
 
 ```python
 import sys
@@ -461,7 +461,7 @@ As a time-saving convenience, a pre-built model architecture file is available a
 `docs/vignettes/vignette1/configs/resnet_simple.py`
 
 If you do not wish to create your own model architecture file from scratch, you can simply move or copy the 
-pre-built file to the target location (juneberry-example-workspace/architectures/pytorch/resnet_simple.py).
+pre-built file to the target location (juneberry_example_workspace/architectures/pytorch/resnet_simple.py).
 
 ## Implementing the training strategy outlined in a paper with a Juneberry model config.
 

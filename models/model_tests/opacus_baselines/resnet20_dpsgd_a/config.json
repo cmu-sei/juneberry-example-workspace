@@ -32,7 +32,7 @@
             "layers": 20,
             "num_classes": 10
         },
-        "module": "juneberry-example-workspace.architectures.pytorch.torchvision.PreActResnet32x32"
+        "module": "juneberry_example_workspace.architectures.pytorch.torchvision.PreActResnet32x32"
     },
     "model_transforms": [
         {

@@ -7,7 +7,7 @@
         "args": {
             "num_classes": 3
         },
-        "module": "juneberry-example-workspace.architectures.pytorch.sample_tabular_nn.MultiClassModel"
+        "module": "juneberry_example_workspace.architectures.pytorch.sample_tabular_nn.MultiClassModel"
     },
     "platform": "pytorch",
     "pytorch": {
