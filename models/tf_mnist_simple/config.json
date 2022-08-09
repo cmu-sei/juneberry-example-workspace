@@ -27,7 +27,7 @@
             "img_width": 28,
             "num_classes": 10
         },
-        "module": "juneberry-example-workspace.architectures.tensorflow.simple_convnet.SimpleConvnet"
+        "module": "juneberry_example_workspace.architectures.tensorflow.simple_convnet.SimpleConvnet"
     },
     "platform": "tensorflow",
     "tensorflow": {

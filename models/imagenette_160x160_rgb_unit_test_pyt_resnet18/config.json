@@ -39,7 +39,7 @@
             "img_width": 160,
             "num_classes": 1000
         },
-        "module": "juneberry-example-workspace.architectures.pytorch.pytv_resnet18_pretrained_reference.ReferenceResnet18"
+        "module": "juneberry_example_workspace.architectures.pytorch.pytv_resnet18_pretrained_reference.ReferenceResnet18"
     },
     "platform": "pytorch",
     "pytorch": {

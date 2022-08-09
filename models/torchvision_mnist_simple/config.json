@@ -31,7 +31,7 @@
             "img_width": 28,
             "num_classes": 10
         },
-        "module": "juneberry-example-workspace.architectures.pytorch.simple_cnn_28x28.CNN28x28"
+        "module": "juneberry_example_workspace.architectures.pytorch.simple_cnn_28x28.CNN28x28"
     },
     "platform": "pytorch",
     "pytorch": {

@@ -21,7 +21,7 @@
         "args": {
             "num_classes": 2
         },
-        "module": "juneberry-example-workspace.architectures.pytorch.sample_tabular_nn.BinaryModel"
+        "module": "juneberry_example_workspace.architectures.pytorch.sample_tabular_nn.BinaryModel"
     },
     "platform": "pytorch",
     "pytorch": {
