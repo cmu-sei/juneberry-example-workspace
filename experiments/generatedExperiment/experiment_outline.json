@@ -89,10 +89,6 @@
             ]
         },
         {
-            "config_field": "training_transforms[1].kwargs.size",
-            "nickname": "training_transform_cropsize",
-            "vals": [ 158, 160 ]
-        }, {
             "config_field": "seed",
             "nickname": "",
             "vals": "RANDOM"

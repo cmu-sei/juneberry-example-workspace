@@ -69,7 +69,7 @@
     "format_version": "0.2.0",
     "model_architecture": {
         "args": {
-            "class_name": "resnet50",
+            "class_name": "resnet34",
             "class_args": {
                 "pretrained": true
             }
