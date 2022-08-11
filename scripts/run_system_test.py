@@ -276,26 +276,8 @@ def check_training_metric(model_name, model_mgr, eval_dir_mgr, min_train_metric,
     trainer_cls = jb_loader.load_class(model_config.trainer.fqcn)
     evaluator_cls = jb_loader.load_class(model_config.evaluator.fqcn)
 
-    # platform = model_mgr.get_model_platform()
-
     train_metric_name = "accuracy"
     training_metric = training_data.results.accuracy[-1]
-
-    # if platform in ['pytorch', 'pytorch_privacy']:
-    #     eval_metric_name = "balanced_accuracy"
-    #     eval_metric = eval_data.results.metrics.balanced_accuracy
-    #
-    # elif platform in ['detectron2', 'mmdetection']:
-    #     eval_metric_name = "mAP"
-    #     eval_metric = eval_data.results.metrics.bbox['mAP']
-    #
-    # elif platform in ['tensorflow']:
-    #     eval_metric_name = "accuracy"
-    #     eval_metric = eval_data.results.metrics.accuracy
-    #
-    # else:
-    #     logging.error(f"Unknown platform type detected for model {model_name}. Exiting.")
-    #     sys.exit(-1)
 
     eval_metric = evaluator_cls.get_default_metric_value(eval_data)
 
