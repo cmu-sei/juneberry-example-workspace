@@ -13,6 +13,9 @@
             }
         }
     ],
+    "evaluator": {
+        "fqcn": "juneberry.pytorch.evaluation.evaluator.Evaluator"
+    },
     "format_version": "0.2.0",
     "lab_profile": {
         "max_gpus": 1
@@ -35,6 +38,9 @@
     "seed": 4210592948,
     "task": "classification",
     "timestamp": "2021-03-01T10:00:00",
+    "trainer": {
+        "fqcn": "juneberry.pytorch.classifier_trainer.ClassifierTrainer"
+    },
     "training_dataset_config_path": "models/tabular_binary_sample/train_data_config.json",
     "training_transforms": [
         {

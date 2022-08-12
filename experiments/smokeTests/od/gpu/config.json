@@ -27,7 +27,7 @@
             "fqcn": "juneberry.reporting.pr.PRCurve",
             "kwargs": {
                 "iou": 0.5,
-                "output_dir": "ut_val_dt2"
+                "output_dir": "experiments/smokeTests/od/gpu/ut_val_dt2"
             },
             "tests": [
                 {
@@ -40,7 +40,7 @@
             "fqcn": "juneberry.reporting.pr.PRCurve",
             "kwargs": {
                 "iou": 0.5,
-                "output_dir": "ut_val_mmd"
+                "output_dir": "experiments/smokeTests/od/gpu/ut_val_mmd"
             },
             "tests": [
                 {
@@ -53,7 +53,7 @@
             "fqcn": "juneberry.reporting.pr.PRCurve",
             "kwargs": {
                 "iou": 0.55,
-                "output_dir": "ut_val_combined"
+                "output_dir": "experiments/smokeTests/od/gpu/ut_val_combined"
             },
             "tests": [
                 {
@@ -68,8 +68,8 @@
             "description": "System OD Test Summary.md",
             "fqcn": "juneberry.reporting.summary.Summary",
             "kwargs": {
-                "csv_filename": "OD System Test Summary.csv",
-                "md_filename": "System OD Test Summary.md"
+                "csv_filename": "experiments/smokeTests/od/gpu/OD System Test Summary.csv",
+                "md_filename": "experiments/smokeTests/od/gpu/System OD Test Summary.md"
             }
         }
     ],
