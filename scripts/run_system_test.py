@@ -62,7 +62,7 @@ CLSFY_TEST_SET = [
         "imagenette_160x160_rgb_unit_test_pyt_resnet18",
         "data_sets/imagenette_unit_test.json",
         0.94,
-        0.65
+        0.63
     ],
     [
         "imagenette_224x224_rgb_unit_test_tf_resnet50",
@@ -279,7 +279,7 @@ def check_training_metric(model_name, model_mgr, eval_dir_mgr, min_train_metric,
     train_metric_name = "accuracy"
     training_metric = training_data.results.accuracy[-1]
 
-    eval_metric = evaluator_cls.get_default_metric_value(eval_data)
+    eval_metric, eval_metric_name = evaluator_cls.get_default_metric_value(eval_data)
 
     if training_metric >= min_train_metric:
         logging.info(f"Training {train_metric_name} for {model_name} of {training_metric} exceeded "
@@ -287,12 +287,12 @@ def check_training_metric(model_name, model_mgr, eval_dir_mgr, min_train_metric,
 
         # Met the training threshold, so check the eval metric in the same fashion.
         if eval_metric >= min_eval_metric:
-            logging.info(f"Evaluation metric for {model_name} of {eval_metric} exceeded "
-                         f"min metric: {min_eval_metric}.")
+            logging.info(f"Evaluation metric '{eval_metric_name}' for {model_name} of {eval_metric} exceeded "
+                         f"target {eval_metric_name}: {min_eval_metric}.")
             return True
         else:
-            logging.error(f"Evaluation metric for {model_name} of {eval_metric} did NOT exceed min "
-                          f"metric: {min_eval_metric}. See evaluation output file for details.")
+            logging.error(f"Evaluation metric '{eval_metric_name}' for {model_name} of {eval_metric} did NOT exceed "
+                          f"target {eval_metric_name}: {min_eval_metric}. See evaluation output file for details.")
             sys.exit(-1)
 
     else:
@@ -460,13 +460,13 @@ def get_model_dry_run_file_patterns(model_name: str) -> list:
 
     if model_name == "imagenette_160x160_rgb_unit_test_pyt_resnet18":
         ext = [
-            model_mgr.get_pytorch_model_summary_path().name,
+            model_mgr.get_model_summary_path().name,
             '/'.join(model_mgr.get_dryrun_imgs_dir().parts[-2:]) + "/"
         ]
 
     elif model_name == "imagenette_224x224_rgb_unit_test_tf_resnet50":
         ext = [
-            model_mgr.get_pytorch_model_summary_path().name,
+            model_mgr.get_model_summary_path().name,
             '/'.join(model_mgr.get_dryrun_imgs_dir().parts[-2:]) + "/",
             '/'.join(model_mgr.get_training_data_manifest_path().parts[-2:]),
             '/'.join(model_mgr.get_validation_data_manifest_path().parts[-2:])
@@ -474,7 +474,7 @@ def get_model_dry_run_file_patterns(model_name: str) -> list:
 
     elif model_name == "tabular_binary_sample":
         ext = [
-            model_mgr.get_pytorch_model_summary_path().name
+            model_mgr.get_model_summary_path().name
         ]
 
     elif "text_detect" in model_name:
