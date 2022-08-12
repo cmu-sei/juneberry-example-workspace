@@ -465,13 +465,13 @@ def get_model_dry_run_file_patterns(model_name: str) -> list:
 
     if model_name == "imagenette_160x160_rgb_unit_test_pyt_resnet18":
         ext = [
-            model_mgr.get_model_summary_path().name,
+            model_mgr.get_pytorch_model_summary_path().name,
             '/'.join(model_mgr.get_dryrun_imgs_dir().parts[-2:]) + "/"
         ]
 
     elif model_name == "imagenette_224x224_rgb_unit_test_tf_resnet50":
         ext = [
-            model_mgr.get_model_summary_path().name,
+            model_mgr.get_pytorch_model_summary_path().name,
             '/'.join(model_mgr.get_dryrun_imgs_dir().parts[-2:]) + "/",
             '/'.join(model_mgr.get_training_data_manifest_path().parts[-2:]),
             '/'.join(model_mgr.get_validation_data_manifest_path().parts[-2:])
@@ -479,7 +479,7 @@ def get_model_dry_run_file_patterns(model_name: str) -> list:
 
     elif model_name == "tabular_binary_sample":
         ext = [
-            model_mgr.get_model_summary_path().name
+            model_mgr.get_pytorch_model_summary_path().name
         ]
 
     elif "text_detect" in model_name:
