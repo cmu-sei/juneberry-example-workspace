@@ -337,6 +337,7 @@ def get_experiment_file_list(experiment_name):
 
     if experiment_name == "smokeTests/classify":
         return [
+            ".doit.db",
             "Simple binary test ROC.png",
             "System Test 1 ROC class 0,217,482,491,497.png",
             "System Test 1 ROC class 566,569,571.574,701.png",
@@ -344,14 +345,23 @@ def get_experiment_file_list(experiment_name):
             "System Test Summary.md",
             "rules.json",
             "main_dodo.py",
-            "log_experiment.txt",
-            "dryrun_dodo.py"
+            "dryrun_dodo.py",
+            "/logs/log_experiment.txt",
+            "/report_json_files/report_0.json",
+            "/report_json_files/report_1.json",
+            "/report_json_files/report_2.json",
+            "/report_json_files/report_3.json",
+            "/summary_report_files/imagenette_160x160_rgb_unit_test_pyt_resnet18_output.png",
+            "/summary_report_files/imagenette_224x224_rgb_unit_test_tf_resnet50_output.png",
+            "/summary_report_files/Simple binary test ROC.png",
+            "/summary_report_files/System Test 1 ROC class 0,217,482,491,497.png",
+            "/summary_report_files/System Test 1 ROC class 566,569,571.574,701.png",
+            "/summary_report_files/tabular_binary_sample_output.png",
+
         ]
 
     if experiment_name == "smokeTests/od/cpu":
         return [
-            "/ut_val_dt2/eval_metrics.csv",
-            "/ut_val_dt2/log_plot_pr.txt",
             "/ut_val_dt2/pc_curve.png",
             "/ut_val_dt2/pr_curve.png",
             "/ut_val_dt2/rc_curve.png",
@@ -359,8 +369,16 @@ def get_experiment_file_list(experiment_name):
             "System OD Test Summary.md",
             "rules.json",
             "main_dodo.py",
-            "log_experiment.txt",
+            "/logs/log_experiment.txt",
+            "/logs/log_experiment_dryrun.txt",
+            "/logs/log_jb_report.txt",
             "dryrun_dodo.py",
+            "/report_json_files/report_0.json",
+            "/report_json_files/report_1.json",
+            "/summary_report_files/pc_curve.png",
+            "/summary_report_files/pr_curve.png",
+            "/summary_report_files/rc_curve.png",
+            "text_detect_dt2_ut_output.png"
         ]
 
     if experiment_name == "smokeTests/od/gpu":
@@ -384,7 +402,7 @@ def get_experiment_file_list(experiment_name):
             "System OD Test Summary.md",
             "rules.json",
             "main_dodo.py",
-            "log_experiment.txt",
+            "/logs/log_experiment.txt",
             "dryrun_dodo.py",
         ]
 
@@ -414,7 +432,6 @@ def get_model_train_file_patterns(model_name: str) -> list:
 
     files = [
         '/'.join(model_mgr.get_training_out_file().parts[-2:]),
-        '/'.join(model_mgr.get_training_log().parts[-2:]),
         model_mgr.get_model_path(trainer_class.get_platform_defs()).name
     ]
 
@@ -454,9 +471,7 @@ def get_model_dry_run_file_patterns(model_name: str) -> list:
     model_config = ModelConfig.load(model_mgr.get_model_config())
     trainer_class = jb_loader.load_class(model_config.trainer.fqcn)
 
-    files = [
-        '/'.join(model_mgr.get_training_dryrun_log_path().parts[-2:])
-    ]
+    files = []
 
     if model_name == "imagenette_160x160_rgb_unit_test_pyt_resnet18":
         ext = [
