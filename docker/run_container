@@ -1,0 +1,49 @@
+#! /usr/bin/env bash
+
+
+# This script is designed to be run from the root of a workspace folder where juneberry is a sibling folder.
+
+# Standard cluster configuration
+BASE="-it --rm --network=host --ipc=host"
+#ENVS="--env HTTP_PROXY --env http_proxy --env HTTPS_PROXY --env https_proxy --env NO_PROXY --env no_proxy -e USER_NAME=${USER} -e USER_ID=`id -u ${USER}` -e USER_GID=`id -g ${USER}`"
+ENVS="--env HTTP_PROXY --env http_proxy --env HTTPS_PROXY --env https_proxy --env NO_PROXY --env no_proxy"
+GPUS="--gpus all"
+JB="-v $(pwd)/../juneberry:/juneberry"
+DATA="-v /srv/etc-cornelius/datasets:/dataroot"
+TB="-v $(pwd)/../tensorboard:/tensorboard"
+HUB_CACHE="-v /srv/juneberry-data/cache/hub:/root/.cache/torch/hub"
+TORCH_CACHE="-v /srv/juneberry-data/cache/torch:/root/.torch"
+NAME="--name ${USER}"
+CONTAINER="artifacts.sei.cmu.edu/etc-docker/juneberry/cudadev:dev"
+PROJECT="-v $(pwd):/juneberry-example-workspace -w /juneberry-example-workspace"
+# Sample configuration for use from a CPU only machine such as a laptop
+#PROJ=${HOME}/proj
+#BASE="-it --rm --network=host --ipc=host"
+#ENVS="--env HTTP_PROXY --env http_proxy --env HTTPS_PROXY --env https_proxy --env NO_PROXY --env no_proxy"
+#GPUS=""
+#JB="-v ${PROJ}/juneberry:/juneberry -w /juneberry"
+#DATA="-v ${PROJ}/datasets:/datasets:ro"
+#TB="-v ${PROJ}/tensorboard:/tensorboard"
+#HUB_CACHE="-v ${PROJ}/cache/hub:/root/.cache/torch/hub"
+#TORCH_CACHE="-v ${PROJ}/cache/torch:/root/.torch"
+#NAME="--name ${USER}"
+#CONTAINER="artifacts.sei.cmu.edu/etc-docker/juneberry/cpudev:latest"
+
+# Fix GPUS
+if [ ! -z ${CUDA_VISIBLE_DEVICES} ]; then
+  if [ "${CUDA_VISIBLE_DEVICES}" == "none"]; then
+    GPUS=""
+  else
+    GPUS="--gpus \"device=${CUDA_VISIBLE_DEVICES}\""
+  fi
+fi
+
+# Ultimately we let someone override the container for local testing or selection
+if [ ${#} -eq 1 ]; then
+  CONTAINER=${1}
+fi
+
+# Assemble the command show and run it
+CMD="docker run ${BASE} ${ENVS} ${GPUS} ${JB} ${PROJECT} ${DATA} ${TB} ${HUB_CACHE} ${TORCH_CACHE} ${NAME} ${CONTAINER} bash"
+echo "${CMD}"
+${CMD}
