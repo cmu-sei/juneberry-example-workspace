@@ -69,6 +69,26 @@
         "fqcn": "juneberry.pytorch.classifier_trainer.ClassifierTrainer"
     },
     "training_dataset_config_path": "data_sets/imagenette_unit_train.json",
+    "training_metrics": [
+        {
+            "fqcn": "juneberry.metrics.torchnn.metrics.Metrics",
+            "kwargs": {
+                "fqn": "torch.nn.CrossEntropyLoss",
+                "name": "loss",
+                "kwargs": {}
+            }
+        },
+        {
+            "fqcn": "juneberry.metrics.sklearn.metrics.Metrics",
+            "kwargs": {
+                "fqn": "sklearn.metrics.accuracy_score",
+                "name": "accuracy",
+                "kwargs": {
+                    "normalize": false
+                }
+            }
+        }
+    ],
     "training_transforms": [
         {
             "fqcn": "juneberry.transforms.image.ConvertMode",
