@@ -273,13 +273,13 @@ def check_training_metric(model_name, model_mgr, eval_dir_mgr, min_train_metric,
     trainer_cls = jb_loader.load_class(model_config.trainer.fqcn)
     evaluator_cls = jb_loader.load_class(model_config.evaluator.fqcn)
 
-    if evaluator_cls in CLSFY_EVALUATORS:
+    if model_config.evaluator.fqcn in CLSFY_EVALUATORS:
         eval_data = EvaluationOutput.load(eval_dir_mgr.get_predictions_path())
-    elif evaluator_cls in OD_EVALUATORS:
+    elif model_config.evaluator.fqcn in OD_EVALUATORS:
         eval_data = EvaluationOutput.load(eval_dir_mgr.get_metrics_path())
     else:
-        logging.error(f"Unknown task type detected for model {model_name}. Unable to determine which training metric "
-                      f"to check for this model. Exiting.")
+        logging.error(f"Unknown task type detected for model {model_name}. Looking for evaluator class: {evaluator_cls}."
+                      f"Unable to determine which training metric to check for this model. Exiting.")
         sys.exit(-1)
 
     train_metric_name = "accuracy"
@@ -676,12 +676,13 @@ def check_metric(test_set) -> int:
         model_config = ModelConfig.load(model_mgr.get_model_config())
         evaluator_cls = jb_loader.load_class(model_config.evaluator.fqcn)
 
-        if evaluator_cls in CLSFY_EVALUATORS:
+        if model_config.evaluator.fqcn in CLSFY_EVALUATORS:
             metric_file_path = eval_dir_mgr.get_predictions_path()
-        elif evaluator_cls in OD_EVALUATORS:
+        elif model_config.evaluator.fqcn in OD_EVALUATORS:
             metric_file_path = eval_dir_mgr.get_metrics_path()
         else:
-            logging.warning(f"The task type for model '{model_name}' could not be determined. Skipping metrics check.")
+            logging.warning(f"The task type for model '{model_name}' could not be determined. "
+                            f"Looking for evaluator class: {evaluator_cls}. Skipping metrics check.")
             continue
 
         # Check the metric against what we expect before we move forward
