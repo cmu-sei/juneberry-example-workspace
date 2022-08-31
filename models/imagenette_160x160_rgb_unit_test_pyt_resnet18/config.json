@@ -33,13 +33,13 @@
     "format_version": "0.2.0",
     "label_mapping": "data_sets/label_mappings/imagenet.json",
     "model_architecture": {
-        "args": {
+        "fqcn": "juneberry_example_workspace.architectures.pytorch.pytv_resnet18_pretrained_reference.ReferenceResnet18",
+        "kwargs": {
             "channels": 3,
             "img_height": 160,
             "img_width": 160,
             "num_classes": 1000
-        },
-        "module": "juneberry_example_workspace.architectures.pytorch.pytv_resnet18_pretrained_reference.ReferenceResnet18"
+        }
     },
     "platform": "pytorch",
     "pytorch": {

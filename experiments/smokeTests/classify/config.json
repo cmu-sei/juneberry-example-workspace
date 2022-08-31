@@ -23,7 +23,6 @@
                 "train_out_cp"
             ],
             "name": "imagenette_160x160_rgb_unit_test_pyt_resnet18",
-            "onnx": true,
             "tests": [
                 {
                     "classify": 3,
@@ -34,7 +33,6 @@
         },
         {
             "name": "imagenette_224x224_rgb_unit_test_tf_resnet50",
-            "onnx": true,
             "tests": [
                 {
                     "classify": 3,

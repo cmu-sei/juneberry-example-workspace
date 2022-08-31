@@ -56,10 +56,10 @@
     },
     "format_version": "0.2.0",
     "model_architecture": {
-        "args": {
+        "fqcn": "COCO-Detection/faster_rcnn_R_50_FPN_3x.yaml",
+        "kwargs": {
             "num_classes": 3
-        },
-        "module": "COCO-Detection/faster_rcnn_R_50_FPN_3x.yaml"
+        }
     },
     "pytorch": {
         "deterministic": true

@@ -6,8 +6,8 @@
     },
     "format_version": "0.2.0",
     "model_architecture": {
-        "args": {},
-        "module": ""
+        "fqcn": "",
+        "kwargs": { }
     },
     "seed": 12345,
     "training_dataset_config_path": "data_sets/coco2017_val.json",

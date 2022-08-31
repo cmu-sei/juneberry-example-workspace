@@ -25,13 +25,13 @@
     ],
     "format_version": "0.2.0",
     "model_architecture": {
-        "args": {
+        "fqcn": "juneberry_example_workspace.architectures.pytorch.simple_cnn_28x28.CNN28x28",
+        "kwargs": {
             "channels": 1,
             "img_height": 28,
             "img_width": 28,
             "num_classes": 10
-        },
-        "module": "juneberry_example_workspace.architectures.pytorch.simple_cnn_28x28.CNN28x28"
+        }
     },
     "platform": "pytorch",
     "pytorch": {
@@ -78,7 +78,7 @@
     "validation": {
         "algorithm": "random_fraction",
         "arguments": {
-            "fraction" : 0.2
+            "fraction": 0.2
         }
     }
 }

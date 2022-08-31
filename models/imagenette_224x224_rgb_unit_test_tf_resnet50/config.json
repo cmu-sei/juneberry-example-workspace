@@ -22,13 +22,13 @@
     "format_version": "0.2.0",
     "label_mapping": "data_sets/label_mappings/imagenet.json",
     "model_architecture": {
-        "args": {
+        "fqcn": "juneberry_example_workspace.architectures.tensorflow.resnet_pretrained_reference.Resnet50Pretrained",
+        "kwargs": {
             "channels": 3,
             "img_height": 224,
             "img_width": 224,
             "num_classes": 1000
-        },
-        "module": "juneberry_example_workspace.architectures.tensorflow.resnet_pretrained_reference.Resnet50Pretrained"
+        }
     },
     "platform": "tensorflow",
     "tensorflow": {

@@ -21,13 +21,13 @@
     "format_version": "0.2.0",
     "label_mapping": "data_sets/label_mappings/imagenet.json",
     "model_architecture": {
-        "args": {
+        "fqcn": "juneberry_example_workspace.architectures.tensorflow.simple_convnet.SimpleConvnet",
+        "kwargs": {
             "channels": 1,
             "img_height": 28,
             "img_width": 28,
             "num_classes": 10
-        },
-        "module": "juneberry_example_workspace.architectures.tensorflow.simple_convnet.SimpleConvnet"
+        }
     },
     "platform": "tensorflow",
     "tensorflow": {
