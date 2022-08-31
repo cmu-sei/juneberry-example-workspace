@@ -63,7 +63,6 @@
         }
     },
     "seed": 31415,
-    "task": "classification",
     "timestamp": "2022-02-03T08:30:00",
     "trainer": {
         "fqcn": "juneberry.pytorch.classifier_trainer.ClassifierTrainer"

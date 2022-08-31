@@ -52,7 +52,6 @@
         "optimizer_fn": "torch.optim.SGD"
     },
     "seed": 4210592948,
-    "task": "classification",
     "timestamp": "2021-07-01T16:30:00",
     "training_dataset_config_path": "data_sets/mnist.json",
     "training_transforms": [

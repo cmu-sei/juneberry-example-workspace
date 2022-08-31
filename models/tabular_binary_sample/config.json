@@ -36,7 +36,6 @@
         "optimizer_fn": "torch.optim.SGD"
     },
     "seed": 4210592948,
-    "task": "classification",
     "timestamp": "2021-03-01T10:00:00",
     "trainer": {
         "fqcn": "juneberry.pytorch.classifier_trainer.ClassifierTrainer"

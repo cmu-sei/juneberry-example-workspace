@@ -39,7 +39,6 @@
         "optimizer_fn": "tensorflow.keras.optimizers.Adam"
     },
     "seed": 4210592948,
-    "task": "classification",
     "timestamp": "2021-03-02T13:30:00",
     "training_dataset_config_path": "data_sets/tfds/plain/mnist_train.json",
     "training_transforms": [

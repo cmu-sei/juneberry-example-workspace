@@ -18,7 +18,6 @@
         "optimizer_fn": "torch.optim.SGD"
     },
     "seed": 4210592948,
-    "task": "classification",
     "timestamp": "2021-03-01T10:00:00",
     "training_dataset_config_path": "models/tabular_multiclass_sample/train_data_config.json",
     "validation": {

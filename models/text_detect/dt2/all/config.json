@@ -65,7 +65,6 @@
         "deterministic": true
     },
     "seed": 4210592948,
-    "task": "objectDetection",
     "timestamp": "2022-02-08T07:15:00",
     "trainer": {
         "fqcn": "juneberry.detectron2.trainer.Detectron2Trainer"
