@@ -35,7 +35,6 @@
         }
     },
     "seed": 31415,
-    "task": "classification",
     "timestamp": "2021-08-16T10:00:00",
     "training_dataset_config_path": "models/model_tests/xor_examples/xor.json",
     "validation": {

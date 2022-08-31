@@ -36,7 +36,6 @@
         "deterministic": true
     },
     "seed": 4210592948,
-    "task": "objectDetection",
     "timestamp": "2021-03-03T10:00:00",
     "training_dataset_config_path": "models/text_detect_ut_dt2_preprocessing/text_detect_val_relabeled.json",
     "training_transforms": [],

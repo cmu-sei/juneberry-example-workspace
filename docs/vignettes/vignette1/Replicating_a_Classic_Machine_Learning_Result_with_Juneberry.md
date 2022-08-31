@@ -559,7 +559,6 @@ field's purpose. The next few sections describe how to fill out these fields to 
         }
     }
     "seed":  "<A numerical value used for randomization.>",
-    "task":  "<The type of data processing task; could be classification or object detection.>",
     "timestamp": "<yyyy-mm-ddThr:min:sec format for when this config was created.>",
     "trainer": {
         "fqcn": "<The fully qualified name of a class that extends the juneberry.trainer base class.>",
@@ -872,7 +871,6 @@ and it should look something like the following block of code:
         }
     },
     "seed": 31415,
-    "task": "classification",
     "timestamp": "2022-02-03T08:30:00",
     "trainer": {
         "fqcn": "juneberry.pytorch.classifier_trainer.ClassifierTrainer"

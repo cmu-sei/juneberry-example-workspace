@@ -72,7 +72,6 @@
         "optimizer_fn": "torch.optim.SGD"
     },
     "seed": 4210592948,
-    "task": "classification",
     "timestamp": "2021-06-23T10:20:00",
     "training_dataset_config_path": "data_sets/imagenet_single_batch_128.json",
     "training_transforms": [

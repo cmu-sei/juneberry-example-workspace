@@ -40,7 +40,6 @@
         "optimizer_fn": "tensorflow.keras.optimizers.SGD"
     },
     "seed": 4210592948,
-    "task": "classification",
     "timestamp": "2021-03-02T13:30:00",
     "trainer": {
         "fqcn": "juneberry.tensorflow.trainer.ClassifierTrainer"
