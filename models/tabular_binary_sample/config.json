@@ -38,7 +38,7 @@
     "seed": 4210592948,
     "timestamp": "2021-03-01T10:00:00",
     "trainer": {
-        "fqcn": "juneberry.pytorch.classifier_trainer.ClassifierTrainer"
+        "fqcn": "juneberry.pytorch.trainer.ClassifierTrainer"
     },
     "training_dataset_config_path": "models/tabular_binary_sample/train_data_config.json",
     "training_transforms": [
