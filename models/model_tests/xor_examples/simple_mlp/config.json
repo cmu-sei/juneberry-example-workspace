@@ -4,8 +4,8 @@
     "epochs": 500,
     "format_version": "0.2.0",
     "model_architecture": {
-        "module": "juneberry_example_workspace.architectures.pytorch.sample_tabular_nn.XORModel",
-        "args": {
+        "fqcn": "juneberry_example_workspace.architectures.pytorch.sample_tabular_nn.XORModel",
+        "kwargs": {
             "in_features" : 2, 
             "num_classes": 2,
             "hidden_features": 2,

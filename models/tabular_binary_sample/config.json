@@ -21,10 +21,10 @@
         "max_gpus": 1
     },
     "model_architecture": {
-        "args": {
+        "fqcn": "juneberry_example_workspace.architectures.pytorch.sample_tabular_nn.BinaryModel",
+        "kwargs": {
             "num_classes": 2
-        },
-        "module": "juneberry_example_workspace.architectures.pytorch.sample_tabular_nn.BinaryModel"
+        }
     },
     "platform": "pytorch",
     "pytorch": {

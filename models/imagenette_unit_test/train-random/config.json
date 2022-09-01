@@ -29,7 +29,7 @@
                 ]
             }
         }
-        ],    
+    ],
     "evaluation_transforms": [
         {
             "fqcn": "juneberry.transforms.image.ConvertMode",
@@ -41,7 +41,7 @@
             "fqcn": "torchvision.transforms.RandomResizedCrop",
             "kwargs": {
                 "size": 256,
-                "scale": [0.35, 1.3333333333333333]
+                "scale": [ 0.35, 1.3333333333333333 ]
             }
         },
         {
@@ -68,13 +68,13 @@
     },
     "format_version": "0.2.0",
     "model_architecture": {
-        "args": {
+        "fqcn": "juneberry.pytorch.torchvision.Wrapper",
+        "kwargs": {
             "class_name": "resnet34",
             "class_args": {
                 "pretrained": false
             }
-        },
-        "module": "juneberry.pytorch.torchvision.Wrapper"
+        }
     },
     "platform": "pytorch",
     "pytorch": {
@@ -113,7 +113,7 @@
             "fqcn": "torchvision.transforms.RandomResizedCrop",
             "kwargs": {
                 "size": 256,
-                "scale": [0.35, 1.3333333333333333]
+                "scale": [ 0.35, 1.3333333333333333 ]
             }
         },
         {

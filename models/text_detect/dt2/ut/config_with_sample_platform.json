@@ -12,16 +12,15 @@
             "models/text_detect/dt2/ut/sample_supplement.yaml",
             "models/text_detect/dt2/ut/sample_supplement2.yaml"
         ]
-
     },
     "epochs": 1,
-    "evaluation_transforms": [],
+    "evaluation_transforms": [ ],
     "format_version": "0.2.0",
     "model_architecture": {
-        "args": {
+        "fqcn": "models/text_detect/dt2/ut/sample_platform_config.yaml",
+        "kwargs": {
             "num_classes": 3
-        },
-        "module": "models/text_detect/dt2/ut/sample_platform_config.yaml"
+        }
     },
     "platform": "detectron2",
     "pytorch": {
@@ -30,7 +29,7 @@
     "seed": 4210592948,
     "timestamp": "2021-03-03T10:00:00",
     "training_dataset_config_path": "data_sets/text_detect_val.json",
-    "training_transforms": [],
+    "training_transforms": [ ],
     "validation": {
         "algorithm": "random_fraction",
         "arguments": {

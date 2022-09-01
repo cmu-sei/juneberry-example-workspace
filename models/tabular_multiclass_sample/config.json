@@ -4,10 +4,10 @@
     "epochs": 100,
     "format_version": "0.2.0",
     "model_architecture": {
-        "args": {
+        "fqcn": "juneberry_example_workspace.architectures.pytorch.sample_tabular_nn.MultiClassModel",
+        "kwargs": {
             "num_classes": 3
-        },
-        "module": "juneberry_example_workspace.architectures.pytorch.sample_tabular_nn.MultiClassModel"
+        }
     },
     "platform": "pytorch",
     "pytorch": {
