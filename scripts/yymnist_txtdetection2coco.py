@@ -58,7 +58,7 @@ def main():
         
         #images[] 
         image_path = Path(sect[0]) # /yymnist_system_test/yymnist/Images10/000001.jpg
-        rel_image_path = image_path.relative_to(data_root) #yymnist/Images10/000001.jpg
+        rel_image_path = image_path.relative_to("/dataroot") #yymnist/Images10/000001.jpg
         image = {
             "id" : int(count),
             "file_name" : str(rel_image_path),  #same as first string in the line 
