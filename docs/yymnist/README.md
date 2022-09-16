@@ -21,31 +21,20 @@ For this example we will do a 80/10/10 split respectively.
 
 Training Set:
 `
-python yymnist/make_data.py --images_num 80 --images_path /dataroot/yymnist/Images80_train/ --labels_txt /dataroot/yymnist/Images80_train.txt --seed 123
+python yymnist/make_data.py --images_num 80 --images_path /dataroot/yymnist/Images80_train/ --coco_json /dataroot/yymnist/Images80_train.json --seed 123
 `
 
 Validation Set:
 `
-python yymnist/make_data.py --images_num 10 --images_path /dataroot/yymnist/Images10_val/ --labels_txt /dataroot/yymnist/Images10_val.txt --seed 456
+python yymnist/make_data.py --images_num 10 --images_path /dataroot/yymnist/Images10_val/ --coco_json /dataroot/yymnist/Images10_val.json --seed 456
 `
 
 Test Set:
 `
-python yymnist/make_data.py --images_num 10 --images_path /dataroot/yymnist/Images10_test/ --labels_txt /dataroot/yymnist/Images10_test.txt --seed 789
+python yymnist/make_data.py --images_num 10 --images_path /dataroot/yymnist/Images10_test/ --coco_json /dataroot/yymnist/Images10_test.json --seed 789
 `
 
-2. Convert your labels.txt to coco format so that it can be consumable in Juneberry. <br>
-
-Training JSON:
-`scripts/yymnist_txtdetection2coco.py /dataroot/yymnist/Images80_train/ /dataroot/yymnist/Images80_train.txt /dataroot/yymnist/Images80_train.json`
-
-Validation JSON:
-`scripts/yymnist_txtdetection2coco.py /dataroot/yymnist/Images10_val/ /dataroot/yymnist/Images10_val.txt /dataroot/yymnist/Images10_val.json`
-
-Testing JSON:
-`scripts/yymnist_txtdetection2coco.py /dataroot/yymnist/Images10_test/ /dataroot/yymnist/Images10_test.txt /dataroot/yymnist/Images10_test.json`
-
-3. Update paths for newly created datasets
+2. Update paths for newly created datasets
 
 `data_sets/yymnist_train.json`
 
