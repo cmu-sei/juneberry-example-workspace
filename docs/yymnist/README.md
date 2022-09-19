@@ -7,8 +7,6 @@ This document is intended to walk a user through the necessary steps to run obje
 
 # Setup 
 Install opencv, Juneberry, and pull down the yymnsit repo
-<br>
-`git config --global http.proxy http://cloudproxy.sei.cmu.edu:80/`
 `
 git clone https://github.com/cmu-sei/yymnist.git
 `
