@@ -19,6 +19,12 @@
     },
     "seed": 4210592948,
     "timestamp": "2021-03-01T10:00:00",
+    "trainer":{
+	    "fqcn":"juneberry.pytorch.trainer.ClassifierTrainer"
+    },
+    "evaluator":{
+        "fqcn":"juneberry.pytorch.evaluation.evaluator.Evaluator"
+    },
     "training_dataset_config_path": "models/tabular_multiclass_sample/train_data_config.json",
     "validation": {
         "algorithm": "from_file",

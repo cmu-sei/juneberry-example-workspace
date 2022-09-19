@@ -460,8 +460,7 @@ As a time-saving convenience, a pre-built model architecture file is available a
 
 `docs/vignettes/vignette1/configs/resnet_simple.py`
 
-If you do not wish to create your own model architecture file from scratch, you can simply move or copy the 
-pre-built file to the target location (juneberry_example_workspace/architectures/pytorch/resnet_simple.py).
+This is also copied (conveniently) at `juneberry_example_workspace/architectures/pytorch/resnet_simple.py`.
 
 ## Implementing the training strategy outlined in a paper with a Juneberry model config.
 
