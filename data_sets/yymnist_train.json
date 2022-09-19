@@ -1,6 +1,6 @@
 {
     "data_type": "image",
-    "description": "Juneberry metadata files created using detectron2 text detection.",
+    "description": "Juneberry metadata files created using detectron2 object detection.",
     "format_version": "0.2.0",
     "image_data": {
         "sources": [
