@@ -106,10 +106,9 @@ def labels_and_images(data_root, image_paths, images_path, train_split,
             cv2.imwrite(new_image_path, data)
 
             image_num += 1
-            print(image_num)
-            print(result)
 
-        with open(os.path.join("/dataroot/mnistod/", annotations[i]), "w+") as wf:
+        path = data_root + "/mnistod/"
+        with open(os.path.join(path, annotations[i]), "w+") as wf:
             json_object = json.dumps(result)
             wf.write(json_object)
 
