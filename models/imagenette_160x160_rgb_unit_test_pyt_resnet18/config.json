@@ -43,10 +43,6 @@
     },
     "platform": "pytorch",
     "pytorch": {
-        "accuracy_args": {
-            "normalize": true
-        },
-        "accuracy_fn": "sklearn.metrics.accuracy_score",
         "deterministic": true,
         "loss_fn": "torch.nn.CrossEntropyLoss",
         "lr_schedule_args": {
@@ -68,6 +64,18 @@
         "fqcn": "juneberry.pytorch.trainer.ClassifierTrainer"
     },
     "training_dataset_config_path": "data_sets/imagenette_unit_train.json",
+    "training_metrics": [
+        {
+            "fqcn": "juneberry.metrics.classification.sklearn.metrics.Metrics",
+            "kwargs": {
+                "fqn": "sklearn.metrics.accuracy_score",
+                "name": "accuracy",
+                "kwargs": {
+                    "normalize": true
+                }
+            }
+        }
+    ],
     "training_transforms": [
         {
             "fqcn": "juneberry.transforms.image.ConvertMode",
