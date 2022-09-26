@@ -1,6 +1,6 @@
 {
     "batch_size": 10,
-    "description": "Trains an object detector using the YYMNIST TextDetection data set.",
+    "description": "Trains an object detector using the MNIST Object Detection data set.",
     "detectron2": {
         "overrides": [
             "SOLVER.BASE_LR",
@@ -69,7 +69,7 @@
     "trainer": {
         "fqcn": "juneberry.detectron2.trainer.Detectron2Trainer"
     },
-    "training_dataset_config_path": "data_sets/yymnist_train.json",
+    "training_dataset_config_path": "data_sets/mnistod_train.json",
     "training_transforms": [
         {
             "fqcn": "juneberry.detectron2.transforms.DT2Logger",
@@ -81,7 +81,7 @@
     "validation": {
         "algorithm": "from_file",
         "arguments": {
-            "file_path": "data_sets/yymnist_val.json"
+            "file_path": "data_sets/mnistod_val.json"
         }
     }, 
     "reports": [
@@ -89,13 +89,13 @@
             "description": "eval report",
             "fqcn": "juneberry.reporting.pr.PRCurve",
             "kwargs": {
-                "output_dir": "models/yymnist_R50/report",
+                "output_dir": "models/mnistod_R50/report",
                 "iou": 0.5,
                 "tp_threshold": 0.8,
                 "curve_sources": [
                     {
-                        "model": "yymnist_R50",
-                        "dataset": "yymnist_test"
+                        "model": "mnistod_R50",
+                        "dataset": "mnistod_test"
                     }
                 ]
             }

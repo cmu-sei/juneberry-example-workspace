@@ -5,7 +5,7 @@
     "image_data": {
         "sources": [
             {
-                "directory": "yymnist/coco_train1k.json"
+                "directory": "mnistod/annotations_val.json"
             }
         ],
         "task_type": "object_detection"
