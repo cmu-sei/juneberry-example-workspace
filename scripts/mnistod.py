@@ -37,7 +37,7 @@ randomizer = random.Random()
 
 
 # function that generates the mnist dataset and their train/test/val annotation files for Juneberry
-def labels_and_images(data_root, image_paths, images_path, train_split,
+def labels_and_images(data_root, image_paths, images_path, anno_path, train_split,
                       test_split, val_split, sizes, image_size, max_iou):
 
     # pre-defined annotation file names
@@ -117,9 +117,8 @@ def labels_and_images(data_root, image_paths, images_path, train_split,
 
             image_num += 1
 
-        path = data_root + '/mnistod/'
         # generate annotation file
-        with open(os.path.join(path, annotations[i]), "w+") as wf:
+        with open(os.path.join(anno_path, annotations[i]), "w+") as wf:
             json_object = json.dumps(result)
             wf.write(json_object)
     print("Completed image and annotation generation")
@@ -267,7 +266,7 @@ def main():
                     os.listdir("./mnistod/mnist/test")]
 
     # Generate random images and their corresponding annotation for train/test/val
-    labels_and_images(flags.data_root, image_paths, flags.images_path, flags.train_split,
+    labels_and_images(flags.data_root, image_paths, flags.images_path, flags.annotations_path, flags.train_split,
                       flags.test_split, flags.val_split, sizes, image_size, flags.max_iou)
 
 if __name__ == "__main__":

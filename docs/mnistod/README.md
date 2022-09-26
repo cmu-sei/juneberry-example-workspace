@@ -19,7 +19,14 @@ For this example we will do a 1000/250/250 split respectively.
 
 Generate train/test/val datasets and annotations:
 `
-python scripts/mnistod.py --data_root /dataroot --images_path /dataroot/mnistod/images/ --train_split 1000 --test_split 250 --val_split 250 --seed 123`
+python scripts/mnistod.py --data_root /dataroot --images_path /dataroot/mnistod/images/ --annotations_path /dataroot/mnistod/ --train_split 80 --test_split 10 --val_split 10 --seed 123
+`
+
+- `--data_root`: defines the root base directory for creating relative pathing
+- `--images_path`: defines where the generated mnist .jpg imges will be saved
+- `--annotations_path`: defines the directory to save the `annotation_train.json` `annotation_test.json` `annotation_val.json`
+- `--train_split` `--test_split` `--val_split`: defines the number of images to generate for each split respectively
+- `--seed`: defines the random seed to use for repeatable testing
 
 
 # Run training and evaluation
