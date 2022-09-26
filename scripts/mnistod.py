@@ -173,7 +173,7 @@ def make_image(result, blank, boxes, data_rt, image_path, new_image_path,
     labels_obj = {
         "id": bbox_num,
         "image_id": image_num + 1,
-        "category_id": ID,
+        "category_id": int(ID),
         "area": 0,
         "bbox": [],
         "is_crowd": 0
