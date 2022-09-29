@@ -10,9 +10,7 @@
 # ================================================================
 
 import os
-import cv2
 import PIL
-import numpy as np
 import shutil
 import random
 import sys
@@ -20,14 +18,15 @@ import json
 import argparse
 from pathlib import Path
 from collections import defaultdict
-import torchvision.datasets
+import torchvision
 
 # ================================================================
 # Changelog
 # sei-hmmoore 2022-09-15 - Wrapped the parser into a main() function,
 #                          Wrapped the logic into function outside of main,
 #                          Added in ability to output coco.json format,
-#                          Generates train/test/val splits in one call
+#                          Generates train/test/val splits in one call,
+#                          Added more configurations
 #
 # ================================================================
 
@@ -37,7 +36,7 @@ randomizer = random.Random()
 
 
 # function that generates the mnist dataset and their train/test/val annotation files for Juneberry
-def labels_and_images(data_root, image_paths, images_path, anno_path, train_split,
+def labels_and_images(data_root, all_items, images_path, anno_path, train_split,
                       test_split, val_split, sizes, image_size, max_iou):
 
     # pre-defined annotation file names
@@ -74,8 +73,7 @@ def labels_and_images(data_root, image_paths, images_path, anno_path, train_spli
         result = {'annotations': [], 'categories': categories, 'images': []}
         # iterate over the length of each split for train/test/val
         while image_num < splits[i]:
-            blanks = np.ones(shape=[image_size, image_size, 3]) * 255
-            data = blanks
+            data = PIL.Image.new('RGB', (image_size, image_size))
             bboxes = [[0, 0, 1, 1]]
             img_pth = Path(images_path)
             new_image_path = os.path.realpath(os.path.join(data_rt, img_pth,
@@ -87,9 +85,8 @@ def labels_and_images(data_root, image_paths, images_path, anno_path, train_spli
             if N != 0: bboxes_num += 1
             for _ in range(N):
                 ratio = randomizer.choice(ratios)
-                idx = randomizer.randint(0, 54999)
-                data = make_image(result, blanks, bboxes, data_rt, image_paths[idx], new_image_path,
-                                  image_size, image_num, bboxes_num, max_iou, ratio)
+                make_image(result, data, bboxes, data_rt, all_items, new_image_path, image_size, image_num, bboxes_num,
+                           max_iou, ratio)
 
             # medium object
             ratios = [1., 1.5, 2.]
@@ -97,9 +94,8 @@ def labels_and_images(data_root, image_paths, images_path, anno_path, train_spli
             if N != 0: bboxes_num += 1
             for _ in range(N):
                 ratio = randomizer.choice(ratios)
-                idx = randomizer.randint(0, 54999)
-                data = make_image(result, blanks, bboxes, data_rt, image_paths[idx], new_image_path,
-                                  image_size, image_num, bboxes_num, max_iou, ratio)
+                make_image(result, data, bboxes, data_rt, all_items, new_image_path, image_size, image_num, bboxes_num,
+                           max_iou, ratio)
 
             # big object
             ratios = [3., 4.]
@@ -107,13 +103,13 @@ def labels_and_images(data_root, image_paths, images_path, anno_path, train_spli
             if N != 0: bboxes_num += 1
             for _ in range(N):
                 ratio = randomizer.choice(ratios)
-                idx = randomizer.randint(0, 54999)
-                data = make_image(result, blanks, bboxes, data_rt, image_paths[idx], new_image_path,
-                                  image_size, image_num, bboxes_num, max_iou, ratio)
+                make_image(result, data, bboxes, data_rt, all_items, new_image_path, image_size, image_num, bboxes_num,
+                           max_iou, ratio)
 
             if bboxes_num == 0: continue
-            # create new image
-            cv2.imwrite(new_image_path, data)
+
+            # save the new image using PIL
+            data.save(new_image_path)
 
             image_num += 1
 
@@ -152,16 +148,23 @@ def compute_iou(box1, box2):
     return ((xmax - xmin) * (ymax - ymin)) / (A1 + A2)
 
 
-def make_image(result, blank, boxes, data_rt, image_path, new_image_path,
+def make_image(result, data, boxes, data_rt, all_items, new_image_path,
                image_size, image_num, bbox_num, max_iou, ratio:float=1.0):
 
-    ID = image_path.split("/")[-1][0]
-    image = cv2.imread(image_path)
-    image = cv2.resize(image, (int(28 * ratio), int(28 * ratio)))
-    h, w, c = image.shape
+    label = randomizer.randint(0, 9)
+    idx = randomizer.randint(0, len(all_items[label]) - 1)
+    image = all_items[label][idx]
+
+    new_size = (int(28 * ratio), int(28 * ratio))
+    image.resize(new_size)
+
+    # TODO: Add in configurable augmentations/rotations/normalizations
+
+    w, h = image.size
     rel_img_path = Path(new_image_path)
     rel_img_path = rel_img_path.relative_to(data_rt)
 
+    # coco.json annotation format
     img_obj = {
         "id": image_num + 1,
         "file_name": str(rel_img_path),
@@ -172,7 +175,7 @@ def make_image(result, blank, boxes, data_rt, image_path, new_image_path,
     labels_obj = {
         "id": bbox_num,
         "image_id": image_num + 1,
-        "category_id": int(ID),
+        "category_id": label,
         "area": 0,
         "bbox": [],
         "is_crowd": 0
@@ -210,15 +213,8 @@ def make_image(result, blank, boxes, data_rt, image_path, new_image_path,
             # append the annotation in coco format
             result["annotations"].append(labels_obj)
             break
-
-    for i in range(w):
-        for j in range(h):
-            x = xmin + i
-            y = ymin + j
-            blank[y][x] = image[j][i]
-
-    # cv2.rectangle(blank, (xmin, ymin), (xmax, ymax), [0, 0, 255], 2)
-    return blank
+    # Paste the new number on the image
+    data.paste(image, (xmin, ymin))
 
 
 def main():
@@ -251,23 +247,17 @@ def main():
     os.mkdir(flags.images_path)
 
     # Download MNIST dataset from torchvision
-    # mn = torchvision.datasets.MNIST('./mnistod/mnist', download=True)
-    # all_items = defaultdict(list)
-    # for item in mn:
-    #     all_items[item[1]].append(item[0])
-    #
-    # # Show the counts
-    # for k, v in all_items.items():
-    #     print(f"{k} - {len(v)}")
-
-    image_paths = [os.path.join(os.path.realpath("."), "./mnistod/mnist/train/" + image_name) for image_name in
-                   os.listdir("./mnistod/mnist/train")]
-    image_paths += [os.path.join(os.path.realpath("."), "./mnistod/mnist/test/" + image_name) for image_name in
-                    os.listdir("./mnistod/mnist/test")]
+    mn = torchvision.datasets.MNIST('./mnistod', download=True)
+    all_items = defaultdict(list)
+    for item in mn:
+        all_items[item[1]].append(item[0])
 
     # Generate random images and their corresponding annotation for train/test/val
-    labels_and_images(flags.data_root, image_paths, flags.images_path, flags.annotations_path, flags.train_split,
+    labels_and_images(flags.data_root, all_items, flags.images_path, flags.annotations_path, flags.train_split,
                       flags.test_split, flags.val_split, sizes, image_size, flags.max_iou)
+
+    print(f"Images saved to this location: {flags.images_path}")
+    print(f"Annotation files saved to this location: {flags.annotations_path}")
 
 if __name__ == "__main__":
     main()

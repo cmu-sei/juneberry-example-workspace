@@ -19,6 +19,24 @@
                     "tag": "ut_val_mmd"
                 }
             ]
+        },
+        {
+            "name": "text_detect/dt2/mnistod_R50",
+            "tests": [
+                {
+                    "dataset_path": "data_sets/mnistod_train.json",
+                    "tag": "mnistod_dt2"
+                }
+            ]
+        },
+        {
+            "name": "text_detect/mmd/mnistod_R50",
+            "tests": [
+                {
+                    "dataset_path": "data_sets/mnistod_train.json",
+                    "tag": "mnistod_mmd"
+                }
+            ]
         }
     ],
     "reports": [
