@@ -2,6 +2,30 @@
     "batch_size": 20,
     "description": "Unit test using a pretrained pytorch resnet18 model with small dataset.",
     "epochs": 5,
+    "evaluation_metrics": [
+        {
+            "fqcn": "juneberry.metrics.classification.sklearn.metrics.Metrics",
+            "kwargs": {
+                "fqn": "sklearn.metrics.accuracy_score",
+                "name": "accuracy",
+                "kwargs": {
+                    "sample_weight": null,
+                    "normalize": true
+                }
+            }
+        },
+        {
+            "fqcn": "juneberry.metrics.classification.sklearn.metrics.Metrics",
+            "kwargs": {
+                "fqn": "sklearn.metrics.balanced_accuracy_score",
+                "name": "balanced_accuracy",
+                "kwargs": {
+                    "sample_weight": null,
+                    "adjusted": false
+                }
+            }
+        }
+    ],
     "evaluation_transforms": [
         {
             "fqcn": "juneberry.transforms.image.ConvertMode",
@@ -43,10 +67,6 @@
     },
     "platform": "pytorch",
     "pytorch": {
-        "accuracy_args": {
-            "normalize": true
-        },
-        "accuracy_fn": "sklearn.metrics.accuracy_score",
         "deterministic": true,
         "loss_fn": "torch.nn.CrossEntropyLoss",
         "lr_schedule_args": {
@@ -68,6 +88,18 @@
         "fqcn": "juneberry.pytorch.trainer.ClassifierTrainer"
     },
     "training_dataset_config_path": "data_sets/imagenette_unit_train.json",
+    "training_metrics": [
+        {
+            "fqcn": "juneberry.metrics.classification.sklearn.metrics.Metrics",
+            "kwargs": {
+                "fqn": "sklearn.metrics.accuracy_score",
+                "name": "accuracy",
+                "kwargs": {
+                    "normalize": true
+                }
+            }
+        }
+    ],
     "training_transforms": [
         {
             "fqcn": "juneberry.transforms.image.ConvertMode",
