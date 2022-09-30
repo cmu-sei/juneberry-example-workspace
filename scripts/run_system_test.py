@@ -80,8 +80,8 @@ CLSFY_TEST_SET = [
 
 OD_GPU_TEST_SET = [
     [
-        "text_detect/dt2/ut",
-        "data_sets/text_detect_val.json",
+        "mnistod/dt2",
+        "data_sets/mnistod_train.json",
         # Single GPU (0.34), 2 GPU (0.27), 4 GPU (0.31)
         # This number came from 2 A100 gpus
         0.16,
@@ -89,8 +89,8 @@ OD_GPU_TEST_SET = [
         0.00003
     ],
     [
-        "text_detect/mmd/ut",
-        "data_sets/text_detect_val.json",
+        "mnistod/mmd",
+        "data_sets/mnistod_train.json",
         0.92,
         #  Single GPU (9.3), 2 GPU (2.5), 4 GPU (2.0) in testing.
         0.0138
@@ -99,8 +99,8 @@ OD_GPU_TEST_SET = [
 
 OD_CPU_TEST_SET = [
     [
-        "text_detect/dt2/ut",
-        "data_sets/text_detect_val.json",
+        "mnistod/dt2",
+        "data_sets/mnistod_train.json",
         0.23,
         0.000038
     ]
@@ -448,18 +448,6 @@ def get_model_train_file_patterns(model_name: str) -> list:
         files.append('/'.join(model_mgr.get_training_summary_plot().parts[-2:]))
         return files
 
-    elif "text_detect" in model_name:
-        ext = [
-            '/'.join(model_mgr.get_training_data_manifest_path().parts[-2:]),
-            '/'.join(model_mgr.get_validation_data_manifest_path().parts[-2:])
-        ]
-
-        plat_conf = '/'.join(model_mgr.get_platform_training_config(trainer_class.get_platform_defs()).parts[-2:])
-        ext.append(plat_conf)
-
-        files.extend(ext)
-        return files
-
     else:
         logging.error(f"Internal error: {model_name} is unknown in system test. EXITING.")
         sys.exit(-1)
@@ -497,15 +485,6 @@ def get_model_dry_run_file_patterns(model_name: str) -> list:
         ext = [
             model_mgr.get_model_summary_path().name
         ]
-
-    elif "text_detect" in model_name:
-        ext = [
-            '/'.join(model_mgr.get_training_data_manifest_path().parts[-2:]),
-            '/'.join(model_mgr.get_validation_data_manifest_path().parts[-2:])
-        ]
-
-        plat_conf = '/'.join(model_mgr.get_platform_training_config(trainer_class.get_platform_defs()).parts[-2:])
-        ext.append(plat_conf)
 
     else:
         logging.error(f"Internal error: {model_name} is unknown in system test. EXITING.")
