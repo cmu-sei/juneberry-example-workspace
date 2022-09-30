@@ -19,7 +19,7 @@ For this example we will do a 1000/250/250 split respectively.
 
 Generate train/test/val datasets and annotations:
 `
-python scripts/mnistod.py --data_root /dataroot --images_path /dataroot/mnistod/images/ --annotations_path /dataroot/mnistod/ --train_split 80 --test_split 10 --val_split 10 --seed 123
+python scripts/mnistod.py /dataroot --train_split 1000 --test_split 250 --val_split 250 --seed 123
 `
 
 - `--data_root`: defines the root base directory for creating relative pathing
