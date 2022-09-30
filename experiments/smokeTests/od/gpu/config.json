@@ -3,24 +3,6 @@
     "format_version": "0.2.0",
     "models": [
         {
-            "name": "text_detect/dt2/ut",
-            "tests": [
-                {
-                    "dataset_path": "data_sets/text_detect_val.json",
-                    "tag": "ut_val_dt2"
-                }
-            ]
-        },
-        {
-            "name": "text_detect/mmd/ut",
-            "tests": [
-                {
-                    "dataset_path": "data_sets/text_detect_val.json",
-                    "tag": "ut_val_mmd"
-                }
-            ]
-        },
-        {
             "name": "mnistod/dt2",
             "tests": [
                 {
@@ -45,11 +27,11 @@
             "fqcn": "juneberry.reporting.pr.PRCurve",
             "kwargs": {
                 "iou": 0.5,
-                "output_dir": "experiments/smokeTests/od/gpu/ut_val_dt2"
+                "output_dir": "experiments/smokeTests/od/gpu/mnistod_dt2"
             },
             "tests": [
                 {
-                    "tag": "ut_val_dt2"
+                    "tag": "mnistod_dt2"
                 }
         ]
         },
@@ -58,11 +40,11 @@
             "fqcn": "juneberry.reporting.pr.PRCurve",
             "kwargs": {
                 "iou": 0.5,
-                "output_dir": "experiments/smokeTests/od/gpu/ut_val_mmd"
+                "output_dir": "experiments/smokeTests/od/gpu/mnistod_mmd"
             },
             "tests": [
                 {
-                    "tag": "ut_val_mmd"
+                    "tag": "mnistod_mmd"
                 }
             ]
         },
@@ -71,14 +53,14 @@
             "fqcn": "juneberry.reporting.pr.PRCurve",
             "kwargs": {
                 "iou": 0.55,
-                "output_dir": "experiments/smokeTests/od/gpu/ut_val_combined"
+                "output_dir": "experiments/smokeTests/od/gpu/mnistod_combined"
             },
             "tests": [
                 {
-                    "tag": "ut_val_dt2"
+                    "tag": "mnistod_dt2"
                 },
                 {
-                    "tag": "ut_val_mmd"
+                    "tag": "mnistod_mmd"
                 }
             ]
         },
