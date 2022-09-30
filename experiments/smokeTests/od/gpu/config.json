@@ -21,7 +21,7 @@
             ]
         },
         {
-            "name": "text_detect/dt2/mnistod_R50",
+            "name": "mnistod/dt2/mnistod",
             "tests": [
                 {
                     "dataset_path": "data_sets/mnistod_train.json",
@@ -30,7 +30,7 @@
             ]
         },
         {
-            "name": "text_detect/mmd/mnistod_R50",
+            "name": "mnistod/mmd/mnistod",
             "tests": [
                 {
                     "dataset_path": "data_sets/mnistod_train.json",
