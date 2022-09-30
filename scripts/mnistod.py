@@ -250,11 +250,11 @@ def main():
                         help="Maximum number of medium placements. Default is 6")
     parser.add_argument("--big", type=int, default=3,
                         help="Maximum number of large placements. Default is 2")
-    parser.add_argument("--train_split", type=int, default=80,
+    parser.add_argument("--train_split", type=int, default=1000,
                         help="Number of images in training split. Default is 80")
-    parser.add_argument("--val_split", type=int, default=10,
+    parser.add_argument("--val_split", type=int, default=250,
                         help="Number of images in validation split. Default is 10")
-    parser.add_argument("--test_split", type=int, default=10,
+    parser.add_argument("--test_split", type=int, default=250,
                         help="Number of images in test split. Default is 10")
     parser.add_argument("--seed", type=int, default=None,
                         help="Seed to use for randomization. Must be 32 bit unsigned for numpy. "
