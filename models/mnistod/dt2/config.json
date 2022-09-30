@@ -54,7 +54,7 @@
     "model_architecture": {
         "fqcn": "COCO-Detection/faster_rcnn_R_50_FPN_1x.yaml",
         "kwargs": {
-            "num_classes": 3
+            "num_classes": 10
         }
     },
     "platform": "detectron2",
