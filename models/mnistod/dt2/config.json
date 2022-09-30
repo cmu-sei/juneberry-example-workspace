@@ -1,18 +1,18 @@
 {
     "batch_size": 4,
-    "description": "Trains an object detector using the MNIST Object Detection data set.",
+    "description": "Unit test for an object detector on the MNIST data set.",
     "detectron2": {
         "overrides": [
             "SOLVER.BASE_LR",
-            0.001,
+            0.0025,
             "SOLVER.REFERENCE_WORLD_SIZE",
             1
         ]
     },
-    "epochs": 10,
+    "epochs": 1,
     "evaluation_metrics": [
         {
-            "fqcn": "juneberry.metrics.metrics.Coco",
+            "fqcn": "juneberry.metrics.objectdetection.brambox.metrics.Coco",
             "kwargs": {
                 "iou_threshold": 0.5,
                 "max_det": 100,
@@ -20,14 +20,14 @@
             }
         },
         {
-            "fqcn": "juneberry.metrics.metrics.Summary",
+            "fqcn": "juneberry.metrics.objectdetection.brambox.metrics.Summary",
             "kwargs": {
                 "iou_threshold": 0.5,
                 "tp_threshold": 0.8
             }
         },
         {
-            "fqcn": "juneberry.metrics.metrics.Tide",
+            "fqcn": "juneberry.metrics.objectdetection.brambox.metrics.Tide",
             "kwargs": {
                 "pos_thresh": 0.5,
                 "bg_thresh": 0.5,
@@ -39,45 +39,35 @@
         }
     ],
     "evaluation_metrics_formatter": {
-        "fqcn": "juneberry.metrics.format.DefaultFormatter",
+        "fqcn": "juneberry.metrics.objectdetection.brambox.format.DefaultFormatter",
         "kwargs": {
         }
     },
-    "evaluation_transforms": [
-        {
-            "fqcn": "juneberry.detectron2.transforms.DT2Logger",
-            "kwargs": {
-                "msg": "eval"
-            }
-        }
-    ],
+    "evaluation_transforms": [ ],
     "evaluator": {
         "fqcn": "juneberry.detectron2.evaluator.Evaluator"
     },
     "format_version": "0.2.0",
-    "model_architecture": {
-        "args": {
-            "num_classes": 10
-        },
-        "module": "COCO-Detection/faster_rcnn_R_50_FPN_3x.yaml"
+    "lab_profile": {
+        "max_gpus": 4
     },
+    "model_architecture": {
+        "fqcn": "COCO-Detection/faster_rcnn_R_50_FPN_1x.yaml",
+        "kwargs": {
+            "num_classes": 3
+        }
+    },
+    "platform": "detectron2",
     "pytorch": {
         "deterministic": true
     },
     "seed": 4210592948,
-    "task": "objectDetection",
+    "timestamp": "2021-03-03T10:00:00",
     "trainer": {
         "fqcn": "juneberry.detectron2.trainer.Detectron2Trainer"
     },
     "training_dataset_config_path": "data_sets/mnistod_train.json",
-    "training_transforms": [
-        {
-            "fqcn": "juneberry.detectron2.transforms.DT2Logger",
-            "kwargs": {
-                "msg": "train"
-            }
-        }
-    ],
+    "training_transforms": [ ],
     "validation": {
         "algorithm": "from_file",
         "arguments": {
