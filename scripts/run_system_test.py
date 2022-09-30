@@ -441,11 +441,23 @@ def get_model_train_file_patterns(model_name: str) -> list:
         model_mgr.get_model_path(trainer_class.get_platform_defs()).name
     ]
 
-    if model_name in ["imagenette_224x224_rgb_unit_test_tf_resnet50", "mnistod"]:
+    if model_name in ["imagenette_224x224_rgb_unit_test_tf_resnet50"]:
         return files
 
     if model_name in ["imagenette_160x160_rgb_unit_test_pyt_resnet18", "tabular_binary_sample"]:
         files.append('/'.join(model_mgr.get_training_summary_plot().parts[-2:]))
+        return files
+
+    elif "mnistod" in model_name:
+        ext = [
+            '/'.join(model_mgr.get_training_data_manifest_path().parts[-2:]),
+            '/'.join(model_mgr.get_validation_data_manifest_path().parts[-2:])
+        ]
+
+        plat_conf = '/'.join(model_mgr.get_platform_training_config(trainer_class.get_platform_defs()).parts[-2:])
+        ext.append(plat_conf)
+
+        files.extend(ext)
         return files
 
     else:
@@ -486,10 +498,13 @@ def get_model_dry_run_file_patterns(model_name: str) -> list:
             model_mgr.get_model_summary_path().name
         ]
 
-    elif model_name == "mnistod":
+    elif "mnistod" in model_name:
         ext = [
-            model_mgr.get_model_summary_path().name
+            '/'.join(model_mgr.get_training_data_manifest_path().parts[-2:]),
+            '/'.join(model_mgr.get_validation_data_manifest_path().parts[-2:])
         ]
+        plat_conf = '/'.join(model_mgr.get_platform_training_config(trainer_class.get_platform_defs()).parts[-2:])
+        ext.append(plat_conf)
 
     else:
         logging.error(f"Internal error: {model_name} is unknown in system test. EXITING.")
