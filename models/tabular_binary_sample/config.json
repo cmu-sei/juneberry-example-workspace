@@ -21,10 +21,10 @@
         "max_gpus": 1
     },
     "model_architecture": {
-        "args": {
+        "fqcn": "juneberry_example_workspace.architectures.pytorch.sample_tabular_nn.BinaryModel",
+        "kwargs": {
             "num_classes": 2
-        },
-        "module": "juneberry_example_workspace.architectures.pytorch.sample_tabular_nn.BinaryModel"
+        }
     },
     "platform": "pytorch",
     "pytorch": {
@@ -36,10 +36,9 @@
         "optimizer_fn": "torch.optim.SGD"
     },
     "seed": 4210592948,
-    "task": "classification",
     "timestamp": "2021-03-01T10:00:00",
     "trainer": {
-        "fqcn": "juneberry.pytorch.classifier_trainer.ClassifierTrainer"
+        "fqcn": "juneberry.pytorch.trainer.ClassifierTrainer"
     },
     "training_dataset_config_path": "models/tabular_binary_sample/train_data_config.json",
     "training_transforms": [

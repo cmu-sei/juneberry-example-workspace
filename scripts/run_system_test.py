@@ -93,7 +93,7 @@ OD_GPU_TEST_SET = [
         "data_sets/text_detect_val.json",
         0.92,
         #  Single GPU (9.3), 2 GPU (2.5), 4 GPU (2.0) in testing.
-        0.0159
+        0.0138
     ]
 ]
 
@@ -105,6 +105,11 @@ OD_CPU_TEST_SET = [
         0.000038
     ]
 ]
+
+CLSFY_EVALUATORS = ["juneberry.pytorch.evaluation.evaluator.Evaluator",
+                    "juneberry.tensorflow.evaluation.evaluator.Evaluator"]
+OD_EVALUATORS = ["juneberry.detectron2.evaluator.Evaluator",
+                 "juneberry.mmdetection.evaluator.Evaluator"]
 
 if torch.cuda.is_available():
     OD_TEST_SET = OD_GPU_TEST_SET
@@ -263,18 +268,19 @@ def check_training_metric(model_name, model_mgr, eval_dir_mgr, min_train_metric,
 
     train_outfile = model_mgr.get_training_out_file()
     training_data = TrainingOutput.load(train_outfile)
-    if model_mgr.model_task == "classification":
-        eval_data = EvaluationOutput.load(eval_dir_mgr.get_predictions_path())
-    elif model_mgr.model_task == "objectDetection":
-        eval_data = EvaluationOutput.load(eval_dir_mgr.get_metrics_path())
-    else:
-        logging.error(f"Unknown task type detected for model {model_name}. Unable to determine which training metric "
-                      f"to check for this model. Exiting.")
-        sys.exit(-1)
 
     model_config = ModelConfig.load(model_mgr.get_model_config())
     trainer_cls = jb_loader.load_class(model_config.trainer.fqcn)
     evaluator_cls = jb_loader.load_class(model_config.evaluator.fqcn)
+
+    if model_config.evaluator.fqcn in CLSFY_EVALUATORS:
+        eval_data = EvaluationOutput.load(eval_dir_mgr.get_predictions_path())
+    elif model_config.evaluator.fqcn in OD_EVALUATORS:
+        eval_data = EvaluationOutput.load(eval_dir_mgr.get_metrics_path())
+    else:
+        logging.error(f"Unknown task type detected for model {model_name}. Looking for evaluator class: {evaluator_cls}."
+                      f"Unable to determine which training metric to check for this model. Exiting.")
+        sys.exit(-1)
 
     train_metric_name = "accuracy"
     training_metric = training_data.results.accuracy[-1]
@@ -667,12 +673,16 @@ def check_metric(test_set) -> int:
     for model_name, test_name, min_train_metric, min_eval_metric in test_set:
         model_mgr = jbfs.ModelManager(model_name)
         eval_dir_mgr = model_mgr.get_eval_dir_mgr(test_name)
-        if model_mgr.model_task == "classification":
+        model_config = ModelConfig.load(model_mgr.get_model_config())
+        evaluator_cls = jb_loader.load_class(model_config.evaluator.fqcn)
+
+        if model_config.evaluator.fqcn in CLSFY_EVALUATORS:
             metric_file_path = eval_dir_mgr.get_predictions_path()
-        elif model_mgr.model_task == "objectDetection":
+        elif model_config.evaluator.fqcn in OD_EVALUATORS:
             metric_file_path = eval_dir_mgr.get_metrics_path()
         else:
-            logging.warning(f"The task type for model '{model_name}' could not be determined. Skipping metrics check.")
+            logging.warning(f"The task type for model '{model_name}' could not be determined. "
+                            f"Looking for evaluator class: {evaluator_cls}. Skipping metrics check.")
             continue
 
         # Check the metric against what we expect before we move forward

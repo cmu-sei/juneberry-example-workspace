@@ -10,13 +10,13 @@
         ]
     },
     "epochs": 1,
-    "evaluation_transforms": [],
+    "evaluation_transforms": [ ],
     "format_version": "0.2.0",
     "model_architecture": {
-        "args": {
+        "fqcn": "COCO-Detection/faster_rcnn_R_50_FPN_1x.yaml",
+        "kwargs": {
             "num_classes": 3
-        },
-        "module": "COCO-Detection/faster_rcnn_R_50_FPN_1x.yaml"
+        }
     },
     "platform": "detectron2",
     "preprocessors": [
@@ -36,10 +36,9 @@
         "deterministic": true
     },
     "seed": 4210592948,
-    "task": "objectDetection",
     "timestamp": "2021-03-03T10:00:00",
     "training_dataset_config_path": "models/text_detect_ut_dt2_preprocessing/text_detect_val_relabeled.json",
-    "training_transforms": [],
+    "training_transforms": [ ],
     "validation": {
         "algorithm": "random_fraction",
         "arguments": {

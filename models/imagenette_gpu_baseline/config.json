@@ -13,7 +13,7 @@
             "fqcn": "torchvision.transforms.RandomResizedCrop",
             "kwargs": {
                 "size": 160,
-                "scale": [0.35, 1.3333333333333333]
+                "scale": [ 0.35, 1.3333333333333333 ]
             }
         },
         {
@@ -36,13 +36,13 @@
     },
     "label_mapping": "data_sets/label_mappings/imagenet.json",
     "model_architecture": {
-        "args": {
+        "fqcn": "juneberry_example_workspace.architectures.pytorch.pytv_resnet18_pretrained_reference.ReferenceResnet18",
+        "kwargs": {
             "channels": 3,
             "img_height": 160,
             "img_width": 160,
             "num_classes": 1000
-        },
-        "module": "juneberry_example_workspace.architectures.pytorch.pytv_resnet18_pretrained_reference.ReferenceResnet18"
+        }
     },
     "platform": "pytorch",
     "pytorch": {
@@ -66,10 +66,9 @@
         "optimizer_fn": "torch.optim.SGD"
     },
     "seed": 4210592948,
-    "task": "classification",
     "timestamp": "2021-03-02T13:30:00",
     "trainer": {
-        "fqcn": "juneberry.pytorch.classifier_trainer.ClassifierTrainer"
+        "fqcn": "juneberry.pytorch.trainer.ClassifierTrainer"
     },
     "training_dataset_config_path": "data_sets/imagenette_unit_train.json",
     "training_transforms": [
@@ -83,7 +82,7 @@
             "fqcn": "torchvision.transforms.RandomResizedCrop",
             "kwargs": {
                 "size": 160,
-                "scale": [0.35, 1.3333333333333333]
+                "scale": [ 0.35, 1.3333333333333333 ]
             }
         },
         {

@@ -43,13 +43,13 @@
     "format_version": "0.2.0",
     "label_mapping": "data_sets/label_mappings/imagenet.json",
     "model_architecture": {
-        "args": {
+        "fqcn": "juneberry.pytorch.torchvision.Wrapper",
+        "kwargs": {
             "class_args": {
                 "pretrained": true
             },
             "class_name": "resnet18"
-        },
-        "module": "juneberry.pytorch.torchvision.Wrapper"
+        }
     },
     "platform": "pytorch",
     "pytorch": {
@@ -72,7 +72,6 @@
         "optimizer_fn": "torch.optim.SGD"
     },
     "seed": 4210592948,
-    "task": "classification",
     "timestamp": "2021-06-23T10:20:00",
     "training_dataset_config_path": "data_sets/imagenet_single_batch_128.json",
     "training_transforms": [

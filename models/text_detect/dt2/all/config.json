@@ -12,7 +12,7 @@
     "epochs": 15,
     "evaluation_metrics": [
         {
-            "fqcn": "juneberry.metrics.metrics.Coco",
+            "fqcn": "juneberry.metrics.objectdetection.brambox.metrics.Coco",
             "kwargs": {
                 "iou_threshold": 0.5,
                 "max_det": 100,
@@ -20,14 +20,14 @@
             }
         },
         {
-            "fqcn": "juneberry.metrics.metrics.Summary",
+            "fqcn": "juneberry.metrics.objectdetection.brambox.metrics.Summary",
             "kwargs": {
                 "iou_threshold": 0.5,
                 "tp_threshold": 0.8
             }
         },
         {
-            "fqcn": "juneberry.metrics.metrics.Tide",
+            "fqcn": "juneberry.metrics.objectdetection.brambox.metrics.Tide",
             "kwargs": {
                 "pos_thresh": 0.5,
                 "bg_thresh": 0.5,
@@ -39,7 +39,7 @@
         }
     ],
     "evaluation_metrics_formatter": {
-        "fqcn": "juneberry.metrics.format.DefaultFormatter",
+        "fqcn": "juneberry.metrics.objectdetection.brambox.format.DefaultFormatter",
         "kwargs": {
         }
     },
@@ -56,16 +56,15 @@
     },
     "format_version": "0.2.0",
     "model_architecture": {
-        "args": {
+        "fqcn": "COCO-Detection/faster_rcnn_R_50_FPN_3x.yaml",
+        "kwargs": {
             "num_classes": 3
-        },
-        "module": "COCO-Detection/faster_rcnn_R_50_FPN_3x.yaml"
+        }
     },
     "pytorch": {
         "deterministic": true
     },
     "seed": 4210592948,
-    "task": "objectDetection",
     "timestamp": "2022-02-08T07:15:00",
     "trainer": {
         "fqcn": "juneberry.detectron2.trainer.Detectron2Trainer"

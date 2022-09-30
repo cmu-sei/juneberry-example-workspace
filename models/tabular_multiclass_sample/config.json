@@ -4,10 +4,10 @@
     "epochs": 100,
     "format_version": "0.2.0",
     "model_architecture": {
-        "args": {
+        "fqcn": "juneberry_example_workspace.architectures.pytorch.sample_tabular_nn.MultiClassModel",
+        "kwargs": {
             "num_classes": 3
-        },
-        "module": "juneberry_example_workspace.architectures.pytorch.sample_tabular_nn.MultiClassModel"
+        }
     },
     "platform": "pytorch",
     "pytorch": {
@@ -18,8 +18,13 @@
         "optimizer_fn": "torch.optim.SGD"
     },
     "seed": 4210592948,
-    "task": "classification",
     "timestamp": "2021-03-01T10:00:00",
+    "trainer":{
+	    "fqcn":"juneberry.pytorch.trainer.ClassifierTrainer"
+    },
+    "evaluator":{
+        "fqcn":"juneberry.pytorch.evaluation.evaluator.Evaluator"
+    },
     "training_dataset_config_path": "models/tabular_multiclass_sample/train_data_config.json",
     "validation": {
         "algorithm": "from_file",

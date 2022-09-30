@@ -5,8 +5,8 @@
     "reports": [
         {
             "description": "Experiment Summary",
-            "output_name": "Experiment Summary.md",
-            "type": "summary"
+            "fqcn": "juneberry.reporting.summary.Summary",
+            "kwargs": {}
         }
     ],
     "tests": [
