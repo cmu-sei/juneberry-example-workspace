@@ -3,7 +3,7 @@ README
 
 # Introduction
 
-This document is intended to walk a user through the necessary steps to run object detection on the [mnistod](https://github.com/cmu-sei/mnistod) dataset with Juneberry.
+This document is intended to walk a user through the necessary steps to run object detection on the [Torchvision MNIST](https://pytorch.org/vision/stable/datasets.html) dataset with Juneberry.
 
 # Create your datasets
 The Juneberry repository has a script that allows a user to create reproducible datasets to test.
