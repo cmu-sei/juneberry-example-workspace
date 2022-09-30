@@ -1,6 +1,6 @@
 {
     "data_type": "image",
-    "description": "Juneberry metadata files created using detectron2 object detection.",
+    "description": "Training data for object detection test based om MNIST.",
     "format_version": "0.2.0",
     "image_data": {
         "sources": [
