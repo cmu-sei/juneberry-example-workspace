@@ -362,9 +362,9 @@ def get_experiment_file_list(experiment_name):
 
     if experiment_name == "smokeTests/od/cpu":
         return [
-            "/ut_val_dt2/pc_curve.png",
-            "/ut_val_dt2/pr_curve.png",
-            "/ut_val_dt2/rc_curve.png",
+            "/mnistod_dt2/pc_curve.png",
+            "/mnistod_dt2/pr_curve.png",
+            "/mnistod_dt2/rc_curve.png",
             "OD System Test Summary.csv",
             "System OD Test Summary.md",
             "rules.json",
@@ -378,26 +378,26 @@ def get_experiment_file_list(experiment_name):
             "/summary_report_files/pc_curve.png",
             "/summary_report_files/pr_curve.png",
             "/summary_report_files/rc_curve.png",
-            "text_detect_dt2_ut_output.png"
+            "mnistod_dt2_output.png"
         ]
 
     if experiment_name == "smokeTests/od/gpu":
         return [
-            "/ut_val_dt2/eval_metrics.csv",
-            "/ut_val_dt2/log_plot_pr.txt",
-            "/ut_val_dt2/pc_curve.png",
-            "/ut_val_dt2/pr_curve.png",
-            "/ut_val_dt2/rc_curve.png",
-            "/ut_val_mmd/eval_metrics.csv",
-            "/ut_val_mmd/log_plot_pr.txt",
-            "/ut_val_mmd/pc_curve.png",
-            "/ut_val_mmd/pr_curve.png",
-            "/ut_val_mmd/rc_curve.png",
-            "/ut_val_combined/eval_metrics.csv",
-            "/ut_val_combined/log_plot_pr.txt",
-            "/ut_val_combined/pc_curve.png",
-            "/ut_val_combined/pr_curve.png",
-            "/ut_val_combined/rc_curve.png",
+            "/mnistod_dt2/eval_metrics.csv",
+            "/mnistod_dt2/log_plot_pr.txt",
+            "/mnistod_dt2/pc_curve.png",
+            "/mnistod_dt2/pr_curve.png",
+            "/mnistod_dt2/rc_curve.png",
+            "/mnistod_mmd/eval_metrics.csv",
+            "/mnistod_mmd/log_plot_pr.txt",
+            "/mnistod_mmd/pc_curve.png",
+            "/mnistod_mmd/pr_curve.png",
+            "/mnistod_mmd/rc_curve.png",
+            "/mnistod_combined/eval_metrics.csv",
+            "/mnistod_combined/log_plot_pr.txt",
+            "/mnistod_combined/pc_curve.png",
+            "/mnistod_combined/pr_curve.png",
+            "/mnistod_combined/rc_curve.png",
             "OD System Test Summary.csv",
             "System OD Test Summary.md",
             "rules.json",
