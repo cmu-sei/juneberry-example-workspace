@@ -441,7 +441,7 @@ def get_model_train_file_patterns(model_name: str) -> list:
         model_mgr.get_model_path(trainer_class.get_platform_defs()).name
     ]
 
-    if model_name in ["imagenette_224x224_rgb_unit_test_tf_resnet50"]:
+    if model_name in ["imagenette_224x224_rgb_unit_test_tf_resnet50", "mnistod"]:
         return files
 
     if model_name in ["imagenette_160x160_rgb_unit_test_pyt_resnet18", "tabular_binary_sample"]:
@@ -482,6 +482,11 @@ def get_model_dry_run_file_patterns(model_name: str) -> list:
         ]
 
     elif model_name == "tabular_binary_sample":
+        ext = [
+            model_mgr.get_model_summary_path().name
+        ]
+
+    elif model_name == "mnistod":
         ext = [
             model_mgr.get_model_summary_path().name
         ]
