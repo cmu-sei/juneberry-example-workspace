@@ -1,3 +1,25 @@
+# ======================================================================================================================
+# Juneberry - Release 0.5
+#
+# Copyright 2022 Carnegie Mellon University.
+#
+# NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS"
+# BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER
+# INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED
+# FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM
+# FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+#
+# Released under a BSD (SEI)-style license, please see license.txt or contact permission@sei.cmu.edu for full terms.
+#
+# [DISTRIBUTION STATEMENT A] This material has been approved for public release and unlimited distribution. Please see
+# Copyright notice for non-US Government use and distribution.
+#
+# This Software includes and/or makes use of Third-Party Software each subject to its own license.
+#
+# DM22-0856
+#
+# ======================================================================================================================
+
 # Experiment to test juneberry with the baseline torchvision models
 
 This experiment compares the validation accuracy from the training call `jb_train` to the validation accuracy from the evaluation call to `jb_evaluate` to check that both parts of the pipeline are functioning as expected. We are using the baseline pytorch models, documented at https://pytorch.org/vision/stable/models.html, as exemplars. We attempt to match the reported Top 1 accuracy by matching their transform pipeline for evaluation. The experiment does not attempt to re-train these models. 
@@ -55,7 +77,3 @@ juneberry]$ find ./models/torchvisionBaseline/ -name eval_log_imagenet_validatio
 ## Discussion
 
 Overall, the `Train - Eval` results match quite nicely, in all cases within 0.2%. The results also match nicely with the results reported by torchvision, with the exception of `wide_resnet50_2`, which is off by almost 2%. It is unclear why this is the case.  
-
-# Copyright
-
-Copyright 2021 Carnegie Mellon University.  See LICENSE.txt file for license terms.
