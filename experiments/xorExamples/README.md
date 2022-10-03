@@ -145,4 +145,4 @@ Minsky, M., & Papert, S. A. (1969). Perceptrons: An introduction to computationa
 
 # Copyright
 
-Copyright 2021 Carnegie Mellon University.  See LICENSE.txt file for license terms.
+Copyright 2022 Carnegie Mellon University.  See LICENSE.txt file for license terms.
