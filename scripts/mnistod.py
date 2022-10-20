@@ -88,7 +88,7 @@ def labels_and_images(data_root, all_items, train_split,
             # Make a new grayscape image as that is what they come in as
             data = Image.new('L', (image_size, image_size))
 
-            # A list of bounding boxes to check for collistions  inthe image
+            # A list of bounding boxes to check for collisions in the image
             bboxes = [[0, 0, 1, 1]]
 
             # Where to save the image for the images spec
@@ -229,7 +229,7 @@ def insert_number(result, data, boxes, data_rt, all_items,
             break
 
     # Paste the new number on the image
-    data.paste(image, (xmin, ymin))
+    data.paste(image, (x_center, y_center))
 
 
 def main():

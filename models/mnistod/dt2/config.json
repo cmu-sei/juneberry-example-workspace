@@ -9,7 +9,7 @@
             1
         ]
     },
-    "epochs": 1,
+    "epochs": 3,
     "evaluation_metrics": [
         {
             "fqcn": "juneberry.metrics.objectdetection.brambox.metrics.Coco",
@@ -62,7 +62,7 @@
         "deterministic": true
     },
     "seed": 4210592948,
-    "timestamp": "2021-03-03T10:00:00",
+    "timestamp": "2022-10-03T10:00:00",
     "trainer": {
         "fqcn": "juneberry.detectron2.trainer.Detectron2Trainer"
     },

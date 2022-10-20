@@ -1,7 +1,7 @@
 {
     "batch_size": 4,
     "description": "Trains an object detector with MMDetection using the Sample MNIST data set.",
-    "epochs": 15,
+    "epochs": 3,
     "evaluation_metrics": [
         {
             "fqcn": "juneberry.metrics.objectdetection.brambox.metrics.Coco",
