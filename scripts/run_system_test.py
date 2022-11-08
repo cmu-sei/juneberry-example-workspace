@@ -80,8 +80,8 @@ CLSFY_TEST_SET = [
 
 OD_GPU_TEST_SET = [
     [
-        "text_detect/dt2/ut",
-        "data_sets/text_detect_val.json",
+        "mnistod/dt2",
+        "data_sets/mnistod_train.json",
         # Single GPU (0.34), 2 GPU (0.27), 4 GPU (0.31)
         # This number came from 2 A100 gpus
         0.16,
@@ -89,8 +89,8 @@ OD_GPU_TEST_SET = [
         0.00003
     ],
     [
-        "text_detect/mmd/ut",
-        "data_sets/text_detect_val.json",
+        "mnistod/mmd",
+        "data_sets/mnistod_train.json",
         0.92,
         #  Single GPU (9.3), 2 GPU (2.5), 4 GPU (2.0) in testing.
         0.0138
@@ -99,8 +99,8 @@ OD_GPU_TEST_SET = [
 
 OD_CPU_TEST_SET = [
     [
-        "text_detect/dt2/ut",
-        "data_sets/text_detect_val.json",
+        "mnistod/dt2",
+        "data_sets/mnistod_train.json",
         0.23,
         0.000038
     ]
@@ -368,9 +368,9 @@ def get_experiment_file_list(experiment_name):
 
     if experiment_name == "smokeTests/od/cpu":
         return [
-            "/ut_val_dt2/pc_curve.png",
-            "/ut_val_dt2/pr_curve.png",
-            "/ut_val_dt2/rc_curve.png",
+            "/mnistod_dt2/pc_curve.png",
+            "/mnistod_dt2/pr_curve.png",
+            "/mnistod_dt2/rc_curve.png",
             "OD System Test Summary.csv",
             "System OD Test Summary.md",
             "rules.json",
@@ -384,26 +384,26 @@ def get_experiment_file_list(experiment_name):
             "/summary_report_files/pc_curve.png",
             "/summary_report_files/pr_curve.png",
             "/summary_report_files/rc_curve.png",
-            "text_detect_dt2_ut_output.png"
+            "mnistod_dt2_output.png"
         ]
 
     if experiment_name == "smokeTests/od/gpu":
         return [
-            "/ut_val_dt2/eval_metrics.csv",
-            "/ut_val_dt2/log_plot_pr.txt",
-            "/ut_val_dt2/pc_curve.png",
-            "/ut_val_dt2/pr_curve.png",
-            "/ut_val_dt2/rc_curve.png",
-            "/ut_val_mmd/eval_metrics.csv",
-            "/ut_val_mmd/log_plot_pr.txt",
-            "/ut_val_mmd/pc_curve.png",
-            "/ut_val_mmd/pr_curve.png",
-            "/ut_val_mmd/rc_curve.png",
-            "/ut_val_combined/eval_metrics.csv",
-            "/ut_val_combined/log_plot_pr.txt",
-            "/ut_val_combined/pc_curve.png",
-            "/ut_val_combined/pr_curve.png",
-            "/ut_val_combined/rc_curve.png",
+            "/mnistod_dt2/eval_metrics.csv",
+            "/mnistod_dt2/log_plot_pr.txt",
+            "/mnistod_dt2/pc_curve.png",
+            "/mnistod_dt2/pr_curve.png",
+            "/mnistod_dt2/rc_curve.png",
+            "/mnistod_mmd/eval_metrics.csv",
+            "/mnistod_mmd/log_plot_pr.txt",
+            "/mnistod_mmd/pc_curve.png",
+            "/mnistod_mmd/pr_curve.png",
+            "/mnistod_mmd/rc_curve.png",
+            "/mnistod_combined/eval_metrics.csv",
+            "/mnistod_combined/log_plot_pr.txt",
+            "/mnistod_combined/pc_curve.png",
+            "/mnistod_combined/pr_curve.png",
+            "/mnistod_combined/rc_curve.png",
             "OD System Test Summary.csv",
             "System OD Test Summary.md",
             "rules.json",
@@ -448,7 +448,7 @@ def get_model_train_file_patterns(model_name: str) -> list:
         files.append('/'.join(model_mgr.get_training_summary_plot().parts[-2:]))
         return files
 
-    elif "text_detect" in model_name:
+    elif "mnistod" in model_name:
         ext = [
             '/'.join(model_mgr.get_training_data_manifest_path().parts[-2:]),
             '/'.join(model_mgr.get_validation_data_manifest_path().parts[-2:])
@@ -498,12 +498,11 @@ def get_model_dry_run_file_patterns(model_name: str) -> list:
             model_mgr.get_model_summary_path().name
         ]
 
-    elif "text_detect" in model_name:
+    elif "mnistod" in model_name:
         ext = [
             '/'.join(model_mgr.get_training_data_manifest_path().parts[-2:]),
             '/'.join(model_mgr.get_validation_data_manifest_path().parts[-2:])
         ]
-
         plat_conf = '/'.join(model_mgr.get_platform_training_config(trainer_class.get_platform_defs()).parts[-2:])
         ext.append(plat_conf)
 
