@@ -39,6 +39,7 @@ from pathlib import Path
 import subprocess
 import sys
 import torch
+import json
 
 from juneberry.config.eval_output import EvaluationOutput
 from juneberry.config.model import ModelConfig
@@ -227,7 +228,7 @@ def init_test_results(model_mgr: jbfs.ModelManager, error_summary) -> None:
     latest.rename(known)
 
 
-def compare_test_results(model_mgr: jbfs.ModelManager, error_summary) -> int:
+def compare_test_results(model_mgr: jbfs.ModelManager, threshold: int, error_summary) -> int:
     """
     Compares the latest results to the known results in the model directory.
     :param model_mgr: The model dir
@@ -238,9 +239,35 @@ def compare_test_results(model_mgr: jbfs.ModelManager, error_summary) -> int:
     known = model_mgr.get_known_results()
 
     if known.exists():
-        if not filecmp.cmp(known, latest):
-            logging.error(f">>> Unit test FAILED. 'diff -y {str(known)} {str(latest)} | more' <<<")
-            error_summary.append(f">>> Unit test FAILED. 'diff -y {str(known)} {str(latest)} | more' <<<")
+        # Load in known and latest results
+        with open(known, 'r') as f:
+            known_data = json.load(f)
+        with open(latest, 'r') as f:
+            latest_data = json.load(f)
+
+        # Get classification or bbox results to compare
+        try:
+            known_results = known_data["results"]["metrics"]["classification"]["accuracy"]
+            latest_results = latest_data["results"]["metrics"]["classification"]["accuracy"]
+            logging.info("Found classification results")
+        except AttributeError:
+            logging.info("No classification results, checking for bbox")
+        try:
+            known_results = known_data["results"]["metrics"]["bbox"]["mAP"]
+            latest_results = latest_data["results"]["metrics"]["bbox"]["mAP"]
+            logging.info("Found bbox results")
+        except AttributeError:
+            logging.error(f">>> Unit test FAILED. 'No classification or bbox results found' <<<")
+            error_summary.append(
+                f">>> Unit test FAILED. 'No classification or bbox results found' <<<")
+            return 1
+
+        # Check if results are within a threshold of eachother
+        diff = ((known_results - latest_results) / known_results) * 100
+        if diff > threshold or diff < (-1 * threshold):
+            logging.error(f">>> Unit test FAILED. 'Results from known and latest are more than 10% different' <<<")
+            error_summary.append(
+                f">>> Unit test FAILED. 'Results from known and latest are more than 10% different' <<<")
             return 1
         else:
             logging.info(f">>> Successful results for for {model_mgr.get_model_dir()} <<<")
@@ -278,8 +305,9 @@ def check_training_metric(model_name, model_mgr, eval_dir_mgr, min_train_metric,
     elif model_config.evaluator.fqcn in OD_EVALUATORS:
         eval_data = EvaluationOutput.load(eval_dir_mgr.get_metrics_path())
     else:
-        logging.error(f"Unknown task type detected for model {model_name}. Looking for evaluator class: {evaluator_cls}."
-                      f"Unable to determine which training metric to check for this model. Exiting.")
+        logging.error(
+            f"Unknown task type detected for model {model_name}. Looking for evaluator class: {evaluator_cls}."
+            f"Unable to determine which training metric to check for this model. Exiting.")
         sys.exit(-1)
 
     train_metric_name = "accuracy"
@@ -695,7 +723,7 @@ def check_metric(test_set) -> int:
     return failures
 
 
-def compare_latest_if_exists(model_names, error_summary):
+def compare_latest_if_exists(model_names, threshold, error_summary):
     """
     Compares all the latest results with the known results.
     :param model_names: A list of the model names to check.
@@ -708,12 +736,12 @@ def compare_latest_if_exists(model_names, error_summary):
         model_mgr = jbfs.ModelManager(model_name)
         latest = model_mgr.get_latest_results()
         if latest.exists():
-            failures += compare_test_results(model_mgr, error_summary)
+            failures += compare_test_results(model_mgr, threshold, error_summary)
 
     return failures
 
 
-def do_experiment(runner, init_known, experiment_name, test_set, error_summary):
+def do_experiment(runner, init_known, experiment_name, test_set, threshold, error_summary):
     """
     Executes the specified experiment from clean, dry run, commit and checking results using the new PyDoit-backed
     jb_run_experiment script.
@@ -765,7 +793,7 @@ def do_experiment(runner, init_known, experiment_name, test_set, error_summary):
             logging.info("Tests INITED. This does NOT mean they passed.")
     else:
         # Since we have been inited, compare each set of output that we have
-        failures += compare_latest_if_exists(model_names, error_summary)
+        failures += compare_latest_if_exists(model_names, threshold, error_summary)
 
     return failures
 
@@ -887,7 +915,8 @@ def main():
                              "Incompatible with init.")
     parser.add_argument("--initifneeded", default=False, action="store_true",
                         help="Set to true to automatically init if not inited. Incompatible with init or reinit.")
-
+    parser.add_argument("--threshold", type=int, default=15,
+                        help="Sets the threshold to be used when comparing the difference between the known/latest results.")
     args = parser.parse_args()
 
     # We need to find the juneberry directory so we can make the bin directory
@@ -925,6 +954,10 @@ def main():
         logging.error("Reinit and initifneeded may not be set at the same time. Exiting.")
         sys.exit(-1)
 
+    if args.threshold >= 100 or args.threshold <= -100:
+        logging.error("Threshold to compare results must be below 100 and above -100. Exiting.")
+        sys.exit(-1)
+
     if args.reinit:
         do_reinit(CLSFY_TEST_SET, error_summary)
         do_reinit(OD_TEST_SET, error_summary)
@@ -934,8 +967,8 @@ def main():
         args.init = check_for_init(args.initifneeded, CLSFY_TEST_SET + OD_TEST_SET)
 
     # Test jb_run_experiment (PyDoit)
-    failures = do_experiment(runner, args.init, "smokeTests/classify", CLSFY_TEST_SET, error_summary)
-    failures += do_experiment(runner, args.init, OD_EXPERIMENT, OD_TEST_SET, error_summary)
+    failures = do_experiment(runner, args.init, "smokeTests/classify", CLSFY_TEST_SET, args.threshold, error_summary)
+    failures += do_experiment(runner, args.init, OD_EXPERIMENT, OD_TEST_SET, args.threshold, error_summary)
 
     if args.init:
         if failures == 0:
