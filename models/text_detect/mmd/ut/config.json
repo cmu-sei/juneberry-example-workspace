@@ -44,7 +44,8 @@
         "load_from": "https://download.openmmlab.com/mmdetection/v2.0/faster_rcnn/faster_rcnn_r50_caffe_dc5_mstrain_1x_coco/faster_rcnn_r50_caffe_dc5_mstrain_1x_coco_20201028_233851-b33d21b9.pth",
         "overrides": {
             "model.roi_head.bbox_head.num_classes": 3,
-            "optimizer.lr": 0.003
+            "optimizer.lr": 0.003,
+            "device": "cuda"
         }
     },
     "model_architecture": {
