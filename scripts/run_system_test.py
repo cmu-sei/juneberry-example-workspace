@@ -955,7 +955,7 @@ def main():
         logging.error("Reinit and initifneeded may not be set at the same time. Exiting.")
         sys.exit(-1)
 
-    if args.threshold >= 100:
+    if args.threshold < 100:
         logging.error("Threshold to compare results must be below 100. Exiting.")
         sys.exit(-1)
 
