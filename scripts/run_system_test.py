@@ -232,6 +232,7 @@ def compare_test_results(model_mgr: jbfs.ModelManager, threshold: int, error_sum
     """
     Compares the latest results to the known results in the model directory.
     :param model_mgr: The model dir
+    :param threshold: The maximum percentage difference used to compare results
     :param error_summary: A summary of generated errors
     :return: 0 if no errors, 1 if an error
     """
@@ -263,11 +264,11 @@ def compare_test_results(model_mgr: jbfs.ModelManager, threshold: int, error_sum
             return 1
 
         # Check if results are within a threshold of eachother
-        diff = ((known_results - latest_results) / known_results) * 100
-        if diff > threshold or diff < (-1 * threshold):
-            logging.error(f">>> Unit test FAILED. 'Results from known and latest are more than 10% different' <<<")
+        diff = abs(((known_results - latest_results) / known_results) * 100)
+        if diff > threshold:
+            logging.error(f">>> Unit test FAILED. 'Results from known and latest are more than {threshold}% different' <<<")
             error_summary.append(
-                f">>> Unit test FAILED. 'Results from known and latest are more than 10% different' <<<")
+                f">>> Unit test FAILED. 'Results from known and latest are more than {threshold}% different' <<<")
             return 1
         else:
             logging.info(f">>> Successful results for for {model_mgr.get_model_dir()} <<<")
