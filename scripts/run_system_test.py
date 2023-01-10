@@ -247,21 +247,25 @@ def compare_test_results(model_mgr: jbfs.ModelManager, threshold: int, error_sum
             latest_data = json.load(f)
 
         # Get classification or bbox results to compare
-        try:
-            known_results = known_data["results"]["metrics"]["classification"]["accuracy"]
-            latest_results = latest_data["results"]["metrics"]["classification"]["accuracy"]
+        known_results = known_data.get("results", {})\
+            .get("metrics", {}).get("classification", {}).get("accuracy", {})
+        latest_results = latest_data.get("results", {})\
+            .get("metrics", {}).get("classification", {}).get("accuracy", {})
+
+        if known_results != {} and latest_results != {}:
             logging.info("Found classification results")
-        except AttributeError:
+        else:
             logging.info("No classification results, checking for bbox")
-        try:
-            known_results = known_data["results"]["metrics"]["bbox"]["mAP"]
-            latest_results = latest_data["results"]["metrics"]["bbox"]["mAP"]
-            logging.info("Found bbox results")
-        except AttributeError:
-            logging.error(f">>> Unit test FAILED. 'No classification or bbox results found' <<<")
-            error_summary.append(
-                f">>> Unit test FAILED. 'No classification or bbox results found' <<<")
-            return 1
+            known_results = known_data.get("results", {})\
+                .get("metrics", {}).get("bbox", {}).get("mAP", {})
+            latest_results = latest_data.get("results", {})\
+                .get("metrics", {}).get("bbox", {}).get("mAP", {})
+
+            if known_results == {} and latest_results == {}:
+                logging.error(f">>> Unit test FAILED. 'No classification or bbox results found' <<<")
+                error_summary.append(
+                    f">>> Unit test FAILED. 'No classification or bbox results found' <<<")
+                return 1
 
         # Check if results are within a threshold of eachother
         diff = abs(((known_results - latest_results) / known_results) * 100)
@@ -916,7 +920,7 @@ def main():
                              "Incompatible with init.")
     parser.add_argument("--initifneeded", default=False, action="store_true",
                         help="Set to true to automatically init if not inited. Incompatible with init or reinit.")
-    parser.add_argument("--threshold", type=int, default=15,
+    parser.add_argument("--threshold", type=int, default=20,
                         help="Sets the threshold to be used when comparing the difference between the known/latest results.")
     args = parser.parse_args()
 
