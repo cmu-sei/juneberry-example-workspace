@@ -920,7 +920,7 @@ def main():
                              "Incompatible with init.")
     parser.add_argument("--initifneeded", default=False, action="store_true",
                         help="Set to true to automatically init if not inited. Incompatible with init or reinit.")
-    parser.add_argument("--threshold", type=int, default=20,
+    parser.add_argument("--threshold", type=int, default=0,
                         help="Sets the threshold to be used when comparing the difference between the known/latest results.")
     args = parser.parse_args()
 
