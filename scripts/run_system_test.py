@@ -945,7 +945,9 @@ def main():
 
     # Set up the thing to run the command
     runner = CommandRunner(bin_dir, sub_env, workspace_root, data_root)
-    error_summary = []
+    error_summary_init =[]
+    error_summary_clsfy = []
+    error_summary_od = []
 
     if args.init and args.reinit:
         logging.error("Init and reinit may not be set at the same time. Exiting.")
@@ -964,16 +966,16 @@ def main():
         sys.exit(-1)
 
     if args.reinit:
-        do_reinit(CLSFY_TEST_SET, error_summary)
-        do_reinit(OD_TEST_SET, error_summary)
+        do_reinit(CLSFY_TEST_SET, error_summary_init)
+        do_reinit(OD_TEST_SET, error_summary_init)
         return
 
     if not args.init:
         args.init = check_for_init(args.initifneeded, CLSFY_TEST_SET + OD_TEST_SET)
 
     # Test jb_run_experiment (PyDoit)
-    failures = do_experiment(runner, args.init, "smokeTests/classify", CLSFY_TEST_SET, args.threshold, error_summary)
-    failures += do_experiment(runner, args.init, OD_EXPERIMENT, OD_TEST_SET, args.threshold, error_summary)
+    failures = do_experiment(runner, args.init, "smokeTests/classify", CLSFY_TEST_SET, args.threshold, error_summary_clsfy)
+    failures += do_experiment(runner, args.init, OD_EXPERIMENT, OD_TEST_SET, args.threshold, error_summary_od)
 
     if args.init:
         if failures == 0:
@@ -981,16 +983,24 @@ def main():
         else:
             logging.info(f"###### Some errors during initialization! See log for details!")
             logging.info("Error summary: ")
-            for item in error_summary:
+            for item in error_summary_init:
                 logging.error(item)
     else:
         if failures == 0:
             logging.info(f"###### SUCCESS - No test failures! :)")
         else:
             logging.info(f"###### FAILURE - Number of failures: {failures}")
-            logging.info("Error summary: ")
-            for item in error_summary:
-                logging.error(item)
+            # Classification Errors
+            if len(error_summary_clsfy) != 0:
+                logging.info("Classification error summary: ")
+                for item in error_summary_clsfy:
+                    logging.error(item)
+
+            # Object Detection Errors/Warnings
+            if len(error_summary_od) != 0:
+                logging.info("Object Detection error summary: ")
+                for item in error_summary_od:
+                    logging.warning(item)
 
     sys.exit(failures)
 
