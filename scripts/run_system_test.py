@@ -270,7 +270,7 @@ def compare_test_results(model_mgr: jbfs.ModelManager, threshold: int, error_sum
         # Check if results are within a threshold of eachother
         diff = abs(((known_results - latest_results) / known_results) * 100)
         if diff > threshold:
-            logging.error(f">>> Unit test FAILED. 'Results from known and latest are more than {threshold}% different' <<<")
+            logging.warning(f">>> Unit test FAILED. 'Results from known and latest are more than {threshold}% different' <<<")
             error_summary.append(
                 f">>> Unit test FAILED. 'Results from known and latest are more than {threshold}% different' <<<")
             return 1
