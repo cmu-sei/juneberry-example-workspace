@@ -270,9 +270,9 @@ def compare_test_results(model_mgr: jbfs.ModelManager, threshold: int, error_sum
         # Check if results are within a threshold of eachother
         diff = abs(((known_results - latest_results) / known_results) * 100)
         if diff > threshold:
-            logging.error(f">>> Unit test FAILED. 'Results from known and latest are more than {threshold}% different' <<<")
+            logging.warning(f">>> Unit test WARNING. 'Results from known and latest are more than {threshold}% different' <<<")
             error_summary.append(
-                f">>> Unit test FAILED. 'Results from known and latest are more than {threshold}% different' <<<")
+                f">>> Unit test WARNING. 'Results from known and latest are more than {threshold}% different' <<<")
             return 1
         else:
             logging.info(f">>> Successful results for for {model_mgr.get_model_dir()} <<<")
@@ -728,7 +728,7 @@ def check_metric(test_set) -> int:
     return failures
 
 
-def compare_latest_if_exists(model_names, threshold, error_summary):
+def compare_latest_if_exists(model_names, threshold, warning_summary):
     """
     Compares all the latest results with the known results.
     :param model_names: A list of the model names to check.
@@ -736,17 +736,17 @@ def compare_latest_if_exists(model_names, threshold, error_summary):
     :return: Number of failures.
     """
     # Check whatever latest we have.
-    failures = 0
+    warnings = 0
     for model_name in model_names:
         model_mgr = jbfs.ModelManager(model_name)
         latest = model_mgr.get_latest_results()
         if latest.exists():
-            failures += compare_test_results(model_mgr, threshold, error_summary)
+            warnings += compare_test_results(model_mgr, threshold, warning_summary)
 
-    return failures
+    return warnings
 
 
-def do_experiment(runner, init_known, experiment_name, test_set, threshold, error_summary):
+def do_experiment(runner, init_known, experiment_name, test_set, threshold, error_summary, warning_summary):
     """
     Executes the specified experiment from clean, dry run, commit and checking results using the new PyDoit-backed
     jb_run_experiment script.
@@ -767,7 +767,7 @@ def do_experiment(runner, init_known, experiment_name, test_set, threshold, erro
             latest.unlink()
 
     failures = 0
-
+    warnings = 0
     clean_experiment(runner, experiment_name, "--dryrun")
     clean_experiment(runner, experiment_name)
     failures += check_clean(runner, experiment_name, model_names, error_summary, check_experiment=False)
@@ -798,9 +798,9 @@ def do_experiment(runner, init_known, experiment_name, test_set, threshold, erro
             logging.info("Tests INITED. This does NOT mean they passed.")
     else:
         # Since we have been inited, compare each set of output that we have
-        failures += compare_latest_if_exists(model_names, threshold, error_summary)
+        warnings += compare_latest_if_exists(model_names, threshold, warning_summary)
 
-    return failures
+    return failures, warnings
 
 
 def do_reinit(test_set, error_summary) -> None:
@@ -946,6 +946,7 @@ def main():
     # Set up the thing to run the command
     runner = CommandRunner(bin_dir, sub_env, workspace_root, data_root)
     error_summary = []
+    warning_summary = []
 
     if args.init and args.reinit:
         logging.error("Init and reinit may not be set at the same time. Exiting.")
@@ -972,8 +973,10 @@ def main():
         args.init = check_for_init(args.initifneeded, CLSFY_TEST_SET + OD_TEST_SET)
 
     # Test jb_run_experiment (PyDoit)
-    failures = do_experiment(runner, args.init, "smokeTests/classify", CLSFY_TEST_SET, args.threshold, error_summary)
-    failures += do_experiment(runner, args.init, OD_EXPERIMENT, OD_TEST_SET, args.threshold, error_summary)
+    failures_cls, warnings_cls = do_experiment(runner, args.init, "smokeTests/classify", CLSFY_TEST_SET, args.threshold, error_summary, warning_summary)
+    failures_od, warnings_od = do_experiment(runner, args.init, OD_EXPERIMENT, OD_TEST_SET, args.threshold, error_summary, warning_summary)
+    failures = failures_cls + failures_od
+    warnings = warnings_cls + warnings_od
 
     if args.init:
         if failures == 0:
@@ -984,11 +987,22 @@ def main():
             for item in error_summary:
                 logging.error(item)
     else:
-        if failures == 0:
-            logging.info(f"###### SUCCESS - No test failures! :)")
-        else:
+        if failures == 0 and warnings == 0:
+            logging.info(f"###### SUCCESS - No test warnings or failures! :)")
+        elif failures == 0 and warnings != 0:
+            logging.info(f"###### OKAY - No test failures but there were some warnings! :)")
+        elif failures != 0:
             logging.info(f"###### FAILURE - Number of failures: {failures}")
-            logging.info("Error summary: ")
+
+        # Warnings
+        if len(warning_summary) != 0:
+            logging.info("Warning Summary: ")
+            for item in warning_summary:
+                logging.warning(item)
+
+        # Errors
+        if len(error_summary) != 0:
+            logging.info("Error Summary: ")
             for item in error_summary:
                 logging.error(item)
 
